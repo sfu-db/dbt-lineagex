@@ -1,0 +1,26 @@
+
+
+============================== 2023-04-14 22:58:39.245460 | 2a3ad4cc-360e-4900-a4df-0884c8c04625 ==============================
+[0m22:58:39.245460 [info ] [MainThread]: Running with dbt=1.4.1
+[0m22:58:39.246469 [debug] [MainThread]: running dbt with arguments {'write_json': True, 'use_colors': True, 'printer_width': 80, 'version_check': True, 'partial_parse': True, 'static_parser': True, 'profiles_dir': 'C:\\Users\\zshan\\.dbt', 'send_anonymous_usage_stats': True, 'quiet': False, 'no_print': False, 'cache_selected_only': False, 'project_name': 'column_lineage', 'skip_profile_setup': False, 'which': 'init', 'indirect_selection': 'eager'}
+[0m22:58:39.247477 [debug] [MainThread]: Tracking: tracking
+[0m22:58:39.256163 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001F401848160>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001F401848F40>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001F401848EE0>]}
+[0m22:58:39.257425 [debug] [MainThread]: Starter project path: D:\anaconda3\envs\py38\lib\site-packages\dbt\include\starter_project
+[0m22:58:51.477055 [info ] [MainThread]: 
+Your new dbt project "column_lineage" was created!
+
+For more information on how to configure the profiles.yml file,
+please consult the dbt documentation here:
+
+  https://docs.getdbt.com/docs/configure-your-profile
+
+One more thing:
+
+Need help? Don't hesitate to reach out to us via GitHub issues or on Slack:
+
+  https://community.getdbt.com/
+
+Happy modeling!
+
+[0m22:58:51.478107 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001F4017C6CD0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001F40191D760>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001F401848DC0>]}
+[0m22:58:51.478107 [debug] [MainThread]: Flushing usage events
