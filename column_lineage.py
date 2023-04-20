@@ -4,6 +4,7 @@ from sqlglot.expressions import CTE
 from fal import FalDbt
 
 from typing import List
+from utils import _find_column
 
 
 class ColumnLineage:
@@ -43,7 +44,7 @@ class ColumnLineage:
         #print(self.cte_dict)
         #print(self.all_used_col)
         #print(self.possible_columns)
-        print("columns: ", self.column_dict)
+        #print("columns: ", self.column_dict)
         # print("table: ", self.table_list)
 
     def _resolve_column_dict(self, cols: List = None) -> None:
@@ -184,19 +185,20 @@ class ColumnLineage:
                 self.cte_name = plan['Alias']
             temp_dict = {}
             self._extract_from_cond(plan)
-            for idx, val in enumerate(self.cte_column[self.cte_name]):
-                cte_col = re.split(self.split_regex, self.subquery_final_output[idx].strip())
-                all_cols = list(
-                    set(set(cte_col) & set(self.possible_columns)).union(
-                        self.all_used_col
+            if self.cte_name in self.cte_column.keys():
+                for idx, val in enumerate(self.cte_column[self.cte_name]):
+                    cte_col = re.split(self.split_regex, self.subquery_final_output[idx].strip())
+                    all_cols = list(
+                        set(set(cte_col) & set(self.possible_columns)).union(
+                            self.all_used_col
+                        )
                     )
-                )
-                # Subquery in the final projection
-                if self.subquery_final_output[idx].find('SubPlan ') != -1:
-                    subplan_name = re.findall(re.compile(r"SubPlan [0-9]*"), self.subquery_final_output[idx])[0]
-                    all_cols.extend(self.subplan_dict[subplan_name])
-                temp_dict[val] = self._remove_table_alias(all_cols)
-            self.cte_dict[self.cte_name] = temp_dict
+                    # Subquery in the final projection
+                    if self.subquery_final_output[idx].find('SubPlan ') != -1:
+                        subplan_name = re.findall(re.compile(r"SubPlan [0-9]*"), self.subquery_final_output[idx])[0]
+                        all_cols.extend(self.subplan_dict[subplan_name])
+                    temp_dict[val] = self._remove_table_alias(all_cols)
+                self.cte_dict[self.cte_name] = temp_dict
             self.table_alias[plan["Alias"]] = plan["Alias"]
             self.all_used_col = org_all_used_cols
             self.possible_columns = org_possible_cols
@@ -312,7 +314,6 @@ class ColumnLineage:
             "Bitmap Heap Scan",
             "Index Scan",
             "Index Only Scan",
-            "CTE Scan",
         ] and not self.agg_flag:
             # check if it is using Append node for partitioned tables
             if plan['Schema'] + "." + plan['Relation Name'] in list(self.part_tables.keys()):
@@ -325,6 +326,13 @@ class ColumnLineage:
                     self.all_used_col.extend(
                         list(set(row_col) & set(self.possible_columns))
                     )
+        elif "Output" in plan.keys() and plan["Node Type"] == "CTE Scan" and not self.agg_flag:
+            # if it is using Append node for UNION/EXCEPT/INTERSECT
+            for col in plan["Output"]:
+                row_col = re.split(self.split_regex, col.strip())
+                self.all_used_col.extend(
+                    list(set(row_col) & set(self.possible_columns))
+                )
 
     def _add_cte_dict(self, plan: dict = None) -> None:
         """
@@ -450,8 +458,8 @@ class ColumnLineage:
                 self.possible_columns.append(i)
         # if an output has invalid char, its likely it's an expression, have to extract the columns
         if invalid_list:
-            all_table_cols = self._find_column(
-                plan["Schema"] + "." + plan["Relation Name"]
+            all_table_cols = _find_column(
+                table_name=plan["Schema"] + "." + plan["Relation Name"], engine=self.faldbt
             )
             for i in invalid_list:
                 # split the output and match columns from all the columns of the table
@@ -525,25 +533,6 @@ class ColumnLineage:
                 ret_cols.append(self.column_prefix_dict[i])
         return list(set(ret_cols))
 
-    def _find_column(self, table_name: str = "") -> List:
-        """
-        Find the columns for the base table in the database
-        :param table_name: the base table name
-        :return: the list of columns in the base table
-        """
-        cols_fal = self.faldbt.execute_sql(
-            """SELECT attname AS col
-        FROM   pg_attribute
-        WHERE  attrelid = '{}'::regclass  -- table name optionally schema-qualified
-        AND    attnum > 0
-        AND    NOT attisdropped
-        ORDER  BY attnum;
-         ;""".format(
-                table_name
-            )
-        )
-        return list(cols_fal["col"])
-
     def _find_table(self, cte: CTE = None) -> dict:
         """
         Find aliases for the tables in the cte
@@ -595,7 +584,7 @@ class ColumnLineage:
                 if table_alias_dict[t_name] in cte_col_dict.keys():
                     col_name = cte_col_dict[table_alias_dict[t_name]]
                 else:
-                    col_name = self._find_column(table_alias_dict[t_name])
+                    col_name = _find_column(table_name=table_alias_dict[t_name], engine=self.faldbt)
             if isinstance(col_name, list):
                 cte_col_dict[cte_name].extend(col_name)
             else:

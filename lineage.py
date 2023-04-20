@@ -3,9 +3,9 @@ import json
 from fal import FalDbt
 
 from column_lineage import ColumnLineage
-from utils import _preprocess_sql
+from utils import _preprocess_sql, _find_column, _produce_json
 from typing import List
-from itertools import islice
+#from itertools import islice
 # for key, value in islice(manifest['nodes'].items(), 3):
 
 
@@ -33,33 +33,34 @@ class Lineage:
         :return: the output_dict object will be the final output with each model name being key
         """
         self.part_tables = self._get_part_tables()
-        key = 'model.mimic.age_histogram'
-        value = self.manifest['nodes'][key]
-        #for key, value in self.manifest["nodes"].items():
+        #key = 'model.mimic.weight_durations'
+        #value = self.manifest['nodes'][key]
+        for key, value in self.manifest["nodes"].items():
         #for key, value in islice(self.manifest['nodes'].items(), 3):
-        print(key)
-        table_name = value["schema"] + "." + value["name"]
-        self.output_dict[key] = {}
-        self.output_dict[key]["sql"] = value["compiled_code"]
-        ret_sql = _preprocess_sql(value)
-        ret_fal = self.faldbt.execute_sql(
-            "EXPLAIN (VERBOSE TRUE, FORMAT JSON, COSTS FALSE) {}".format(ret_sql)
-        )
-        plan = json.loads(ret_fal.iloc[0]["QUERY PLAN"][1:-1])
-        col_names = self._find_column(table_name=table_name)
-        #col_names_new = self.table_cols_df[self.table_cols_df["table"] == table_name]
-        #print(self.table_cols_df, col_names)
-        col_lineage = ColumnLineage(
-            plan=plan["Plan"],
-            sql=ret_sql,
-            cols=col_names,
-            faldbt=self.faldbt,
-            part_tables=self.part_tables,
-        )
-        self.output_dict[key]["tables"] = col_lineage.table_list
-        self.output_dict[key]["columns"] = col_lineage.column_dict
-        self.output_dict[key]["table_name"] = table_name
-        self.output_dict[key]["plan"] = plan["Plan"]
+            print(key)
+            table_name = value["schema"] + "." + value["name"]
+            self.output_dict[key] = {}
+            ret_sql = _preprocess_sql(value)
+            # self.output_dict[key]["sql"] = value["compiled_code"].replace('\n', '')
+            #self.output_dict[key]["sql"] = ret_sql
+            ret_fal = self.faldbt.execute_sql(
+                "EXPLAIN (VERBOSE TRUE, FORMAT JSON, COSTS FALSE) {}".format(ret_sql)
+            )
+            plan = json.loads(ret_fal.iloc[0]["QUERY PLAN"][1:-1])
+            col_names = _find_column(table_name=table_name, engine=self.faldbt)
+            #col_names_new = self.table_cols_df[self.table_cols_df["table"] == table_name]
+            #print(self.table_cols_df, col_names)
+            col_lineage = ColumnLineage(
+                plan=plan["Plan"],
+                sql=ret_sql,
+                cols=col_names,
+                faldbt=self.faldbt,
+                part_tables=self.part_tables,
+            )
+            self.output_dict[key]["tables"] = col_lineage.table_list
+            self.output_dict[key]["columns"] = col_lineage.column_dict
+            self.output_dict[key]["table_name"] = table_name
+            #self.output_dict[key]["plan"] = plan["Plan"]
 
     def _get_part_tables(self) -> dict:
         """
@@ -78,29 +79,12 @@ class Lineage:
         )
         return dict(zip(parent_fal.child, parent_fal.parent))
 
-    def _find_column(self, table_name: str = "") -> List:
-        """
-        Find the columns for the base table in the database
-        :param table_name: the base table name
-        :return: the list of columns in the base table
-        """
-        cols_fal = self.faldbt.execute_sql(
-            """SELECT attname AS col
-        FROM   pg_attribute
-        WHERE  attrelid = '{}'::regclass  -- table name optionally schema-qualified
-        AND    attnum > 0
-        AND    NOT attisdropped
-        ORDER  BY attnum;
-         ;""".format(
-                table_name
-            )
-        )
-        return list(cols_fal["col"])
 
 if __name__ == "__main__":
-    print(os.getcwd())
-    lineage_output = Lineage("D:\\Archive - Copy")
-    with open("table_output.json", "w") as outfile:
-        json.dump(lineage_output.output_dict, outfile)
+    lineage_output = Lineage("D:\\Archive")
+    output_dict = _produce_json(lineage_output.output_dict, lineage_output.faldbt)
+    #print(str(output_dict))
+    # with open("table_output.json", "w") as outfile:
+    #     json.dump(lineage_output.output_dict, outfile)
     #dag_nodes, column_list = draw_lineage(lineage_output.output_dict['model.mimic.echo_data'], lineage_output.manifest["nodes"]['model.mimic.echo_data'])
     #print(dag_nodes, column_list)

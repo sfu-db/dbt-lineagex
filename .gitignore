@@ -1,4 +1,5 @@
-
+index.html
+output.json
 target/
 dbt_packages/
 logs/

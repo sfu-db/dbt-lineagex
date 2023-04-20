@@ -1,5 +1,7 @@
 import re
 import ast
+import json
+from fal import FalDbt
 from typing import Tuple, List
 
 
@@ -76,7 +78,96 @@ def _preprocess_sql(node: dict = None) -> str:
                 continue
     return ret_sql
 
-# def draw_lineage(l, manifest_data):
+
+def _find_column(table_name: str = "", engine: FalDbt = None) -> List:
+    """
+    Find the columns for the base table in the database
+    :param engine: the connection engine
+    :param table_name: the base table name
+    :return: the list of columns in the base table
+    """
+    cols_fal = engine.execute_sql(
+        """SELECT attname AS col
+    FROM   pg_attribute
+    WHERE  attrelid = '{}'::regclass  -- table name optionally schema-qualified
+    AND    attnum > 0
+    AND    NOT attisdropped
+    ORDER  BY attnum;
+     ;""".format(
+            table_name
+        )
+    )
+    return list(cols_fal["col"])
+
+
+def _produce_json(output_dict: dict = None, engine: FalDbt = None) -> dict:
+    table_to_model_dict = {}
+    for key, val in output_dict.items():
+        table_to_model_dict[val["table_name"]] = key
+
+    dep_dict = {}
+    for key, val in output_dict.items():
+        if key not in dep_dict.keys():
+            dep_dict[key] = {}
+            dep_dict[key]["upstream_tables"] = val["tables"]
+        else:
+            dep_dict[key]["upstream_tables"] = val["tables"]
+        for i in val["tables"]:
+            key_name = table_to_model_dict.get(i, i)
+            if key_name not in dep_dict.keys():
+                dep_dict[key_name] = {}
+                dep_dict[key_name]["downstream_tables"] = [key]
+            else:
+                if "downstream_tables" not in dep_dict[key_name].keys():
+                    dep_dict[key_name]["downstream_tables"] = [key]
+                else:
+                    dep_dict[key_name]["downstream_tables"].append(key)
+    base_table_dict = {}
+    for key, val in dep_dict.items():
+        if "upstream_tables" not in list(val.keys()):
+            val["upstream_tables"] = []
+        if "downstream_tables" not in list(val.keys()):
+            val["downstream_tables"] = []
+        if key in list(output_dict.keys()):
+            val["is_model"] = True
+        else:
+            base_table_dict[key] = {}
+            base_table_dict[key]["tables"] = [""]
+            base_table_dict[key]["columns"] = {}
+            cols = _find_column(key, engine)
+            for i in cols:
+                base_table_dict[key]["columns"][i] = [""]
+            base_table_dict[key]["table_name"] = str(key)
+            val["is_model"] = False
+    base_table_dict.update(output_dict)
+    with open("output.json", "w") as outfile:
+        json.dump(base_table_dict, outfile)
+    _produce_html(output_json=str(base_table_dict).replace("'", '"'))
+    return base_table_dict
+
+
+def _produce_html(output_json: str = ""):
+    # Creating the HTML file
+    file_html = open("index.html", "w", encoding="utf-8")
+    # Adding the input data to the HTML file
+    file_html.write('''<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>DTDesign-React血缘图组件</title>
+</head>
+<body>
+  <script>
+    window.inlineSource = `{}`;
+  </script>
+  <div id="main"></div>
+<script type="text/javascript" src="app.js"></script></body>
+</html>'''.format(output_json))
+    # Saving the data into the HTML file
+    file_html.close()
+
 #     # getting the manifest ref
 #     if len(manifest_data['refs']) != 0:
 #         ref_list = [manifest_data['schema'] + "." + i[0] for i in manifest_data['refs']]
