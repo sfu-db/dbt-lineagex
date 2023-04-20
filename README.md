@@ -16,7 +16,7 @@ After you've finished running your dbt project, change directory to the "scripts
 ```
 
 This would create the index.html in the scripts folder, and just start a http server in the folder and you get to see the graph
-`sample command: php -S localhost:8000`
+sample command: `php -S localhost:8000`
 
 ### How to use
 
