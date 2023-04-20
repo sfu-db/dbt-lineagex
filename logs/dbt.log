@@ -24,3 +24,1120 @@ Happy modeling!
 
 [0m22:58:51.478107 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001F4017C6CD0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001F40191D760>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001F401848DC0>]}
 [0m22:58:51.478107 [debug] [MainThread]: Flushing usage events
+
+
+============================== 2023-04-20 22:25:22.574979 | a29cc0da-45aa-4dd7-a5cf-2767c20257ef ==============================
+[0m22:25:22.574979 [info ] [MainThread]: Running with dbt=1.4.1
+[0m22:25:22.575981 [debug] [MainThread]: running dbt with arguments {'write_json': True, 'use_colors': True, 'printer_width': 80, 'version_check': True, 'partial_parse': True, 'static_parser': True, 'profiles_dir': 'C:\\Users\\zshan\\.dbt', 'send_anonymous_usage_stats': True, 'quiet': False, 'no_print': False, 'cache_selected_only': False, 'which': 'run', 'rpc_method': 'run', 'indirect_selection': 'eager'}
+[0m22:25:22.576973 [debug] [MainThread]: Tracking: tracking
+[0m22:25:22.587937 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000199531D8A60>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000199531D8F40>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000199531D8A90>]}
+[0m22:25:22.601890 [info ] [MainThread]: Unable to do partial parsing because saved manifest not found. Starting full parse.
+[0m22:25:22.601890 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'partial_parser', 'label': 'a29cc0da-45aa-4dd7-a5cf-2767c20257ef', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000199531D8F10>]}
+[0m22:25:23.293167 [debug] [MainThread]: 1699: static parser successfully parsed age_histogram.sql
+[0m22:25:23.303127 [debug] [MainThread]: 1699: static parser successfully parsed basic_patient_info.sql
+[0m22:25:23.332028 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'load_project', 'label': 'a29cc0da-45aa-4dd7-a5cf-2767c20257ef', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000199532B6490>]}
+[0m22:25:23.335932 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'resource_counts', 'label': 'a29cc0da-45aa-4dd7-a5cf-2767c20257ef', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000199531D88E0>]}
+[0m22:25:23.337035 [info ] [MainThread]: Found 2 models, 0 tests, 0 snapshots, 0 analyses, 289 macros, 0 operations, 0 seed files, 0 sources, 0 exposures, 0 metrics
+[0m22:25:23.337035 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': 'a29cc0da-45aa-4dd7-a5cf-2767c20257ef', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000199531EFAF0>]}
+[0m22:25:23.338099 [info ] [MainThread]: 
+[0m22:25:23.339137 [debug] [MainThread]: Acquiring new postgres connection 'master'
+[0m22:25:23.340490 [debug] [ThreadPool]: Acquiring new postgres connection 'list_mimic'
+[0m22:25:23.349463 [debug] [ThreadPool]: Using postgres connection "list_mimic"
+[0m22:25:23.349463 [debug] [ThreadPool]: On list_mimic: /* {"app": "dbt", "dbt_version": "1.4.1", "profile_name": "mimic", "target_name": "dev", "connection_name": "list_mimic"} */
+
+    select distinct nspname from pg_namespace
+  
+[0m22:25:23.349463 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m22:25:23.644953 [debug] [ThreadPool]: SQL status: SELECT 8 in 0 seconds
+[0m22:25:23.649008 [debug] [ThreadPool]: On list_mimic: Close
+[0m22:25:23.651939 [debug] [ThreadPool]: Acquiring new postgres connection 'list_mimic_mimiciii_clinical'
+[0m22:25:23.658972 [debug] [ThreadPool]: Using postgres connection "list_mimic_mimiciii_clinical"
+[0m22:25:23.658972 [debug] [ThreadPool]: On list_mimic_mimiciii_clinical: BEGIN
+[0m22:25:23.658972 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m22:25:23.909463 [debug] [ThreadPool]: SQL status: BEGIN in 0 seconds
+[0m22:25:23.910522 [debug] [ThreadPool]: Using postgres connection "list_mimic_mimiciii_clinical"
+[0m22:25:23.910522 [debug] [ThreadPool]: On list_mimic_mimiciii_clinical: /* {"app": "dbt", "dbt_version": "1.4.1", "profile_name": "mimic", "target_name": "dev", "connection_name": "list_mimic_mimiciii_clinical"} */
+select
+      'mimic' as database,
+      tablename as name,
+      schemaname as schema,
+      'table' as type
+    from pg_tables
+    where schemaname ilike 'mimiciii_clinical'
+    union all
+    select
+      'mimic' as database,
+      viewname as name,
+      schemaname as schema,
+      'view' as type
+    from pg_views
+    where schemaname ilike 'mimiciii_clinical'
+  
+[0m22:25:23.976204 [debug] [ThreadPool]: SQL status: SELECT 336 in 0 seconds
+[0m22:25:23.987201 [debug] [ThreadPool]: On list_mimic_mimiciii_clinical: ROLLBACK
+[0m22:25:24.017939 [debug] [ThreadPool]: On list_mimic_mimiciii_clinical: Close
+[0m22:25:24.044371 [debug] [MainThread]: Using postgres connection "master"
+[0m22:25:24.044371 [debug] [MainThread]: On master: BEGIN
+[0m22:25:24.044371 [debug] [MainThread]: Opening a new connection, currently in state init
+[0m22:25:24.316421 [debug] [MainThread]: SQL status: BEGIN in 0 seconds
+[0m22:25:24.317427 [debug] [MainThread]: Using postgres connection "master"
+[0m22:25:24.318423 [debug] [MainThread]: On master: /* {"app": "dbt", "dbt_version": "1.4.1", "profile_name": "mimic", "target_name": "dev", "connection_name": "master"} */
+with relation as (
+        select
+            pg_rewrite.ev_class as class,
+            pg_rewrite.oid as id
+        from pg_rewrite
+    ),
+    class as (
+        select
+            oid as id,
+            relname as name,
+            relnamespace as schema,
+            relkind as kind
+        from pg_class
+    ),
+    dependency as (
+        select distinct
+            pg_depend.objid as id,
+            pg_depend.refobjid as ref
+        from pg_depend
+    ),
+    schema as (
+        select
+            pg_namespace.oid as id,
+            pg_namespace.nspname as name
+        from pg_namespace
+        where nspname != 'information_schema' and nspname not like 'pg\_%'
+    ),
+    referenced as (
+        select
+            relation.id AS id,
+            referenced_class.name ,
+            referenced_class.schema ,
+            referenced_class.kind
+        from relation
+        join class as referenced_class on relation.class=referenced_class.id
+        where referenced_class.kind in ('r', 'v')
+    ),
+    relationships as (
+        select
+            referenced.name as referenced_name,
+            referenced.schema as referenced_schema_id,
+            dependent_class.name as dependent_name,
+            dependent_class.schema as dependent_schema_id,
+            referenced.kind as kind
+        from referenced
+        join dependency on referenced.id=dependency.id
+        join class as dependent_class on dependency.ref=dependent_class.id
+        where
+            (referenced.name != dependent_class.name or
+             referenced.schema != dependent_class.schema)
+    )
+
+    select
+        referenced_schema.name as referenced_schema,
+        relationships.referenced_name as referenced_name,
+        dependent_schema.name as dependent_schema,
+        relationships.dependent_name as dependent_name
+    from relationships
+    join schema as dependent_schema on relationships.dependent_schema_id=dependent_schema.id
+    join schema as referenced_schema on relationships.referenced_schema_id=referenced_schema.id
+    group by referenced_schema, referenced_name, dependent_schema, dependent_name
+    order by referenced_schema, referenced_name, dependent_schema, dependent_name;
+[0m22:25:24.348879 [debug] [MainThread]: SQL status: SELECT 3 in 0 seconds
+[0m22:25:24.350865 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': 'a29cc0da-45aa-4dd7-a5cf-2767c20257ef', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000199532E0F10>]}
+[0m22:25:24.350865 [debug] [MainThread]: On master: ROLLBACK
+[0m22:25:24.381785 [debug] [MainThread]: Using postgres connection "master"
+[0m22:25:24.382780 [debug] [MainThread]: On master: BEGIN
+[0m22:25:24.446785 [debug] [MainThread]: SQL status: BEGIN in 0 seconds
+[0m22:25:24.446785 [debug] [MainThread]: On master: COMMIT
+[0m22:25:24.447843 [debug] [MainThread]: Using postgres connection "master"
+[0m22:25:24.447843 [debug] [MainThread]: On master: COMMIT
+[0m22:25:24.478015 [debug] [MainThread]: SQL status: COMMIT in 0 seconds
+[0m22:25:24.479078 [debug] [MainThread]: On master: Close
+[0m22:25:24.481069 [info ] [MainThread]: Concurrency: 4 threads (target='dev')
+[0m22:25:24.482070 [info ] [MainThread]: 
+[0m22:25:24.490794 [debug] [Thread-1  ]: Began running node model.mimic.age_histogram
+[0m22:25:24.490794 [debug] [Thread-2  ]: Began running node model.mimic.basic_patient_info
+[0m22:25:24.490794 [info ] [Thread-1  ]: 1 of 2 START sql view model mimiciii_clinical.age_histogram .................... [RUN]
+[0m22:25:24.491790 [debug] [Thread-1  ]: Acquiring new postgres connection 'model.mimic.age_histogram'
+[0m22:25:24.490794 [info ] [Thread-2  ]: 2 of 2 START sql view model mimiciii_clinical.basic_patient_info ............... [RUN]
+[0m22:25:24.491790 [debug] [Thread-1  ]: Began compiling node model.mimic.age_histogram
+[0m22:25:24.492786 [debug] [Thread-2  ]: Acquiring new postgres connection 'model.mimic.basic_patient_info'
+[0m22:25:24.493782 [debug] [Thread-1  ]: Writing injected SQL for node "model.mimic.age_histogram"
+[0m22:25:24.493782 [debug] [Thread-2  ]: Began compiling node model.mimic.basic_patient_info
+[0m22:25:24.494780 [debug] [Thread-2  ]: Writing injected SQL for node "model.mimic.basic_patient_info"
+[0m22:25:24.496939 [debug] [Thread-2  ]: Timing info for model.mimic.basic_patient_info (compile): 2023-04-20 22:25:24.493782 => 2023-04-20 22:25:24.496939
+[0m22:25:24.496939 [debug] [Thread-2  ]: Began executing node model.mimic.basic_patient_info
+[0m22:25:24.502931 [debug] [Thread-1  ]: Timing info for model.mimic.age_histogram (compile): 2023-04-20 22:25:24.492786 => 2023-04-20 22:25:24.502931
+[0m22:25:24.518878 [debug] [Thread-1  ]: Began executing node model.mimic.age_histogram
+[0m22:25:24.546780 [debug] [Thread-2  ]: Writing runtime sql for node "model.mimic.basic_patient_info"
+[0m22:25:24.547785 [debug] [Thread-1  ]: Writing runtime sql for node "model.mimic.age_histogram"
+[0m22:25:24.550768 [debug] [Thread-2  ]: Using postgres connection "model.mimic.basic_patient_info"
+[0m22:25:24.550768 [debug] [Thread-2  ]: On model.mimic.basic_patient_info: BEGIN
+[0m22:25:24.550768 [debug] [Thread-1  ]: Using postgres connection "model.mimic.age_histogram"
+[0m22:25:24.550768 [debug] [Thread-2  ]: Opening a new connection, currently in state init
+[0m22:25:24.551770 [debug] [Thread-1  ]: On model.mimic.age_histogram: BEGIN
+[0m22:25:24.551770 [debug] [Thread-1  ]: Opening a new connection, currently in state init
+[0m22:25:24.831130 [debug] [Thread-1  ]: SQL status: BEGIN in 0 seconds
+[0m22:25:24.831130 [debug] [Thread-1  ]: Using postgres connection "model.mimic.age_histogram"
+[0m22:25:24.831130 [debug] [Thread-2  ]: SQL status: BEGIN in 0 seconds
+[0m22:25:24.832180 [debug] [Thread-1  ]: On model.mimic.age_histogram: /* {"app": "dbt", "dbt_version": "1.4.1", "profile_name": "mimic", "target_name": "dev", "node_id": "model.mimic.age_histogram"} */
+
+  create view "mimic"."mimiciii_clinical"."age_histogram__dbt_tmp" as (
+    -- ------------------------------------------------------------------
+-- Title: Count the number of hospital admissions in equally sized bins of age
+-- Notes: this query does not specify a schema. To run it on your local
+-- MIMIC schema, run the following command:
+--  SET SEARCH_PATH TO mimiciii
+-- Where "mimiciii" is the name of your schema, and may be different.
+-- ------------------------------------------------------------------
+
+WITH agetbl AS
+(
+    SELECT DATETIME_DIFF(ad.admittime, p.dob, 'YEAR') AS age
+      FROM admissions ad
+      INNER JOIN patients p
+      ON ad.subject_id = p.subject_id
+)
+, agebin AS
+(
+      SELECT age, width_bucket(age, 15, 100, 85) AS bucket
+      FROM agetbl
+)
+SELECT bucket+15 as age, count(*)
+FROM agebin
+GROUP BY bucket
+ORDER BY bucket
+  );
+[0m22:25:24.832180 [debug] [Thread-2  ]: Using postgres connection "model.mimic.basic_patient_info"
+[0m22:25:24.832180 [debug] [Thread-2  ]: On model.mimic.basic_patient_info: /* {"app": "dbt", "dbt_version": "1.4.1", "profile_name": "mimic", "target_name": "dev", "node_id": "model.mimic.basic_patient_info"} */
+
+  create view "mimic"."mimiciii_clinical"."basic_patient_info__dbt_tmp" as (
+    -- ------------------------------------------------------------------
+-- Title: Retrieves basic patient information from the patients table
+-- Notes: this query does not specify a schema. To run it on your local
+-- MIMIC schema, run the following command:
+--  SET SEARCH_PATH TO mimiciii
+-- Where "mimiciii" is the name of your schema, and may be different.
+-- ------------------------------------------------------------------
+
+
+SELECT subject_id, gender, dob
+FROM patients
+  );
+[0m22:25:24.865428 [debug] [Thread-1  ]: SQL status: CREATE VIEW in 0 seconds
+[0m22:25:24.866508 [debug] [Thread-2  ]: SQL status: CREATE VIEW in 0 seconds
+[0m22:25:24.875450 [debug] [Thread-1  ]: Using postgres connection "model.mimic.age_histogram"
+[0m22:25:24.877482 [debug] [Thread-2  ]: Using postgres connection "model.mimic.basic_patient_info"
+[0m22:25:24.877482 [debug] [Thread-1  ]: On model.mimic.age_histogram: /* {"app": "dbt", "dbt_version": "1.4.1", "profile_name": "mimic", "target_name": "dev", "node_id": "model.mimic.age_histogram"} */
+alter table "mimic"."mimiciii_clinical"."age_histogram" rename to "age_histogram__dbt_backup"
+[0m22:25:24.877482 [debug] [Thread-2  ]: On model.mimic.basic_patient_info: /* {"app": "dbt", "dbt_version": "1.4.1", "profile_name": "mimic", "target_name": "dev", "node_id": "model.mimic.basic_patient_info"} */
+alter table "mimic"."mimiciii_clinical"."basic_patient_info" rename to "basic_patient_info__dbt_backup"
+[0m22:25:24.911966 [debug] [Thread-2  ]: SQL status: ALTER TABLE in 0 seconds
+[0m22:25:24.913029 [debug] [Thread-1  ]: SQL status: ALTER TABLE in 0 seconds
+[0m22:25:24.918016 [debug] [Thread-2  ]: Using postgres connection "model.mimic.basic_patient_info"
+[0m22:25:24.920202 [debug] [Thread-1  ]: Using postgres connection "model.mimic.age_histogram"
+[0m22:25:24.921199 [debug] [Thread-2  ]: On model.mimic.basic_patient_info: /* {"app": "dbt", "dbt_version": "1.4.1", "profile_name": "mimic", "target_name": "dev", "node_id": "model.mimic.basic_patient_info"} */
+alter table "mimic"."mimiciii_clinical"."basic_patient_info__dbt_tmp" rename to "basic_patient_info"
+[0m22:25:24.921199 [debug] [Thread-1  ]: On model.mimic.age_histogram: /* {"app": "dbt", "dbt_version": "1.4.1", "profile_name": "mimic", "target_name": "dev", "node_id": "model.mimic.age_histogram"} */
+alter table "mimic"."mimiciii_clinical"."age_histogram__dbt_tmp" rename to "age_histogram"
+[0m22:25:24.952351 [debug] [Thread-1  ]: SQL status: ALTER TABLE in 0 seconds
+[0m22:25:24.953420 [debug] [Thread-2  ]: SQL status: ALTER TABLE in 0 seconds
+[0m22:25:24.975283 [debug] [Thread-2  ]: On model.mimic.basic_patient_info: COMMIT
+[0m22:25:24.976280 [debug] [Thread-2  ]: Using postgres connection "model.mimic.basic_patient_info"
+[0m22:25:24.976280 [debug] [Thread-2  ]: On model.mimic.basic_patient_info: COMMIT
+[0m22:25:24.977344 [debug] [Thread-1  ]: On model.mimic.age_histogram: COMMIT
+[0m22:25:24.977344 [debug] [Thread-1  ]: Using postgres connection "model.mimic.age_histogram"
+[0m22:25:24.978322 [debug] [Thread-1  ]: On model.mimic.age_histogram: COMMIT
+[0m22:25:25.009199 [debug] [Thread-1  ]: SQL status: COMMIT in 0 seconds
+[0m22:25:25.016233 [debug] [Thread-1  ]: Using postgres connection "model.mimic.age_histogram"
+[0m22:25:25.016233 [debug] [Thread-1  ]: On model.mimic.age_histogram: /* {"app": "dbt", "dbt_version": "1.4.1", "profile_name": "mimic", "target_name": "dev", "node_id": "model.mimic.age_histogram"} */
+drop view if exists "mimic"."mimiciii_clinical"."age_histogram__dbt_backup" cascade
+[0m22:25:25.016233 [debug] [Thread-2  ]: SQL status: COMMIT in 0 seconds
+[0m22:25:25.018234 [debug] [Thread-2  ]: Using postgres connection "model.mimic.basic_patient_info"
+[0m22:25:25.018234 [debug] [Thread-2  ]: On model.mimic.basic_patient_info: /* {"app": "dbt", "dbt_version": "1.4.1", "profile_name": "mimic", "target_name": "dev", "node_id": "model.mimic.basic_patient_info"} */
+drop view if exists "mimic"."mimiciii_clinical"."basic_patient_info__dbt_backup" cascade
+[0m22:25:25.049037 [debug] [Thread-1  ]: SQL status: DROP VIEW in 0 seconds
+[0m22:25:25.050042 [debug] [Thread-2  ]: SQL status: DROP VIEW in 0 seconds
+[0m22:25:25.054082 [debug] [Thread-1  ]: Timing info for model.mimic.age_histogram (execute): 2023-04-20 22:25:24.518878 => 2023-04-20 22:25:25.053092
+[0m22:25:25.057072 [debug] [Thread-2  ]: Timing info for model.mimic.basic_patient_info (execute): 2023-04-20 22:25:24.496939 => 2023-04-20 22:25:25.056026
+[0m22:25:25.057072 [debug] [Thread-1  ]: On model.mimic.age_histogram: Close
+[0m22:25:25.058073 [debug] [Thread-2  ]: On model.mimic.basic_patient_info: Close
+[0m22:25:25.060064 [debug] [Thread-1  ]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': 'a29cc0da-45aa-4dd7-a5cf-2767c20257ef', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000019953449910>]}
+[0m22:25:25.062002 [debug] [Thread-2  ]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': 'a29cc0da-45aa-4dd7-a5cf-2767c20257ef', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000019953449D30>]}
+[0m22:25:25.061079 [info ] [Thread-1  ]: 1 of 2 OK created sql view model mimiciii_clinical.age_histogram ............... [[32mCREATE VIEW[0m in 0.57s]
+[0m22:25:25.064049 [debug] [Thread-1  ]: Finished running node model.mimic.age_histogram
+[0m22:25:25.062002 [info ] [Thread-2  ]: 2 of 2 OK created sql view model mimiciii_clinical.basic_patient_info .......... [[32mCREATE VIEW[0m in 0.57s]
+[0m22:25:25.064991 [debug] [Thread-2  ]: Finished running node model.mimic.basic_patient_info
+[0m22:25:25.065990 [debug] [MainThread]: Acquiring new postgres connection 'master'
+[0m22:25:25.065990 [debug] [MainThread]: Using postgres connection "master"
+[0m22:25:25.066988 [debug] [MainThread]: On master: BEGIN
+[0m22:25:25.066988 [debug] [MainThread]: Opening a new connection, currently in state closed
+[0m22:25:25.320229 [debug] [MainThread]: SQL status: BEGIN in 0 seconds
+[0m22:25:25.320229 [debug] [MainThread]: On master: COMMIT
+[0m22:25:25.321268 [debug] [MainThread]: Using postgres connection "master"
+[0m22:25:25.321268 [debug] [MainThread]: On master: COMMIT
+[0m22:25:25.352484 [debug] [MainThread]: SQL status: COMMIT in 0 seconds
+[0m22:25:25.352484 [debug] [MainThread]: On master: Close
+[0m22:25:25.353489 [debug] [MainThread]: Connection 'master' was properly closed.
+[0m22:25:25.353489 [debug] [MainThread]: Connection 'list_mimic' was properly closed.
+[0m22:25:25.353489 [debug] [MainThread]: Connection 'list_mimic_mimiciii_clinical' was properly closed.
+[0m22:25:25.353489 [debug] [MainThread]: Connection 'model.mimic.age_histogram' was properly closed.
+[0m22:25:25.353489 [debug] [MainThread]: Connection 'model.mimic.basic_patient_info' was properly closed.
+[0m22:25:25.353489 [info ] [MainThread]: 
+[0m22:25:25.354560 [info ] [MainThread]: Finished running 2 view models in 0 hours 0 minutes and 2.02 seconds (2.02s).
+[0m22:25:25.354560 [debug] [MainThread]: Command end result
+[0m22:25:25.360724 [info ] [MainThread]: 
+[0m22:25:25.360724 [info ] [MainThread]: [32mCompleted successfully[0m
+[0m22:25:25.361730 [info ] [MainThread]: 
+[0m22:25:25.361730 [info ] [MainThread]: Done. PASS=2 WARN=0 ERROR=0 SKIP=0 TOTAL=2
+[0m22:25:25.361730 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000199532E0F40>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000199534D8820>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000199534D87C0>]}
+[0m22:25:25.361730 [debug] [MainThread]: Flushing usage events
+
+
+============================== 2023-04-20 22:33:01.226848 | 16708062-0054-46db-b30e-6af065876dae ==============================
+[0m22:33:01.226848 [info ] [MainThread]: Running with dbt=1.4.1
+[0m22:33:01.228837 [debug] [MainThread]: running dbt with arguments {'write_json': True, 'use_colors': True, 'printer_width': 80, 'version_check': True, 'partial_parse': True, 'static_parser': True, 'profiles_dir': 'C:\\Users\\zshan\\.dbt', 'send_anonymous_usage_stats': True, 'quiet': False, 'no_print': False, 'cache_selected_only': False, 'which': 'clean', 'indirect_selection': 'eager'}
+[0m22:33:01.228837 [debug] [MainThread]: Tracking: tracking
+[0m22:33:01.240803 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002629D8E3C10>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002629D8E32B0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002629D92D370>]}
+[0m22:33:01.243787 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002629D8E32B0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002629D8E3C10>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002629D92DE80>]}
+[0m22:33:01.243787 [debug] [MainThread]: Flushing usage events
+
+
+============================== 2023-04-20 22:33:33.105550 | 5d209384-495d-41b5-8bf5-c0d03422028a ==============================
+[0m22:33:33.105550 [info ] [MainThread]: Running with dbt=1.4.1
+[0m22:33:33.106547 [debug] [MainThread]: running dbt with arguments {'write_json': True, 'use_colors': True, 'printer_width': 80, 'version_check': True, 'partial_parse': True, 'static_parser': True, 'profiles_dir': 'C:\\Users\\zshan\\.dbt', 'send_anonymous_usage_stats': True, 'quiet': False, 'no_print': False, 'cache_selected_only': False, 'which': 'run', 'rpc_method': 'run', 'indirect_selection': 'eager'}
+[0m22:33:33.106547 [debug] [MainThread]: Tracking: tracking
+[0m22:33:33.116510 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001BC01EB89A0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001BC01EB8B50>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001BC01EB89D0>]}
+[0m22:33:33.124484 [info ] [MainThread]: Unable to do partial parsing because saved manifest not found. Starting full parse.
+[0m22:33:33.125481 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'partial_parser', 'label': '5d209384-495d-41b5-8bf5-c0d03422028a', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001BC01EB8F70>]}
+[0m22:33:33.605876 [debug] [MainThread]: 1699: static parser successfully parsed age_histogram.sql
+[0m22:33:33.615843 [debug] [MainThread]: 1699: static parser successfully parsed basic_patient_info.sql
+[0m22:33:33.643749 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'load_project', 'label': '5d209384-495d-41b5-8bf5-c0d03422028a', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001BC01F96640>]}
+[0m22:33:33.647731 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'resource_counts', 'label': '5d209384-495d-41b5-8bf5-c0d03422028a', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001BC01F86D00>]}
+[0m22:33:33.648733 [info ] [MainThread]: Found 2 models, 0 tests, 0 snapshots, 0 analyses, 289 macros, 0 operations, 0 seed files, 0 sources, 0 exposures, 0 metrics
+[0m22:33:33.648733 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': '5d209384-495d-41b5-8bf5-c0d03422028a', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001BC01EC2490>]}
+[0m22:33:33.649730 [info ] [MainThread]: 
+[0m22:33:33.650726 [debug] [MainThread]: Acquiring new postgres connection 'master'
+[0m22:33:33.651786 [debug] [ThreadPool]: Acquiring new postgres connection 'list_mimic'
+[0m22:33:33.660763 [debug] [ThreadPool]: Using postgres connection "list_mimic"
+[0m22:33:33.660763 [debug] [ThreadPool]: On list_mimic: /* {"app": "dbt", "dbt_version": "1.4.1", "profile_name": "mimic", "target_name": "dev", "connection_name": "list_mimic"} */
+
+    select distinct nspname from pg_namespace
+  
+[0m22:33:33.661760 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m22:33:33.935790 [debug] [ThreadPool]: SQL status: SELECT 8 in 0 seconds
+[0m22:33:33.938837 [debug] [ThreadPool]: On list_mimic: Close
+[0m22:33:33.941767 [debug] [ThreadPool]: Acquiring new postgres connection 'list_mimic_mimiciii_clinical'
+[0m22:33:33.946754 [debug] [ThreadPool]: Using postgres connection "list_mimic_mimiciii_clinical"
+[0m22:33:33.946754 [debug] [ThreadPool]: On list_mimic_mimiciii_clinical: BEGIN
+[0m22:33:33.947749 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m22:33:34.216486 [debug] [ThreadPool]: SQL status: BEGIN in 0 seconds
+[0m22:33:34.217480 [debug] [ThreadPool]: Using postgres connection "list_mimic_mimiciii_clinical"
+[0m22:33:34.217480 [debug] [ThreadPool]: On list_mimic_mimiciii_clinical: /* {"app": "dbt", "dbt_version": "1.4.1", "profile_name": "mimic", "target_name": "dev", "connection_name": "list_mimic_mimiciii_clinical"} */
+select
+      'mimic' as database,
+      tablename as name,
+      schemaname as schema,
+      'table' as type
+    from pg_tables
+    where schemaname ilike 'mimiciii_clinical'
+    union all
+    select
+      'mimic' as database,
+      viewname as name,
+      schemaname as schema,
+      'view' as type
+    from pg_views
+    where schemaname ilike 'mimiciii_clinical'
+  
+[0m22:33:34.280625 [debug] [ThreadPool]: SQL status: SELECT 336 in 0 seconds
+[0m22:33:34.288661 [debug] [ThreadPool]: On list_mimic_mimiciii_clinical: ROLLBACK
+[0m22:33:34.319114 [debug] [ThreadPool]: On list_mimic_mimiciii_clinical: Close
+[0m22:33:34.347029 [debug] [MainThread]: Using postgres connection "master"
+[0m22:33:34.347029 [debug] [MainThread]: On master: BEGIN
+[0m22:33:34.348025 [debug] [MainThread]: Opening a new connection, currently in state init
+[0m22:33:34.617397 [debug] [MainThread]: SQL status: BEGIN in 0 seconds
+[0m22:33:34.618464 [debug] [MainThread]: Using postgres connection "master"
+[0m22:33:34.619458 [debug] [MainThread]: On master: /* {"app": "dbt", "dbt_version": "1.4.1", "profile_name": "mimic", "target_name": "dev", "connection_name": "master"} */
+with relation as (
+        select
+            pg_rewrite.ev_class as class,
+            pg_rewrite.oid as id
+        from pg_rewrite
+    ),
+    class as (
+        select
+            oid as id,
+            relname as name,
+            relnamespace as schema,
+            relkind as kind
+        from pg_class
+    ),
+    dependency as (
+        select distinct
+            pg_depend.objid as id,
+            pg_depend.refobjid as ref
+        from pg_depend
+    ),
+    schema as (
+        select
+            pg_namespace.oid as id,
+            pg_namespace.nspname as name
+        from pg_namespace
+        where nspname != 'information_schema' and nspname not like 'pg\_%'
+    ),
+    referenced as (
+        select
+            relation.id AS id,
+            referenced_class.name ,
+            referenced_class.schema ,
+            referenced_class.kind
+        from relation
+        join class as referenced_class on relation.class=referenced_class.id
+        where referenced_class.kind in ('r', 'v')
+    ),
+    relationships as (
+        select
+            referenced.name as referenced_name,
+            referenced.schema as referenced_schema_id,
+            dependent_class.name as dependent_name,
+            dependent_class.schema as dependent_schema_id,
+            referenced.kind as kind
+        from referenced
+        join dependency on referenced.id=dependency.id
+        join class as dependent_class on dependency.ref=dependent_class.id
+        where
+            (referenced.name != dependent_class.name or
+             referenced.schema != dependent_class.schema)
+    )
+
+    select
+        referenced_schema.name as referenced_schema,
+        relationships.referenced_name as referenced_name,
+        dependent_schema.name as dependent_schema,
+        relationships.dependent_name as dependent_name
+    from relationships
+    join schema as dependent_schema on relationships.dependent_schema_id=dependent_schema.id
+    join schema as referenced_schema on relationships.referenced_schema_id=referenced_schema.id
+    group by referenced_schema, referenced_name, dependent_schema, dependent_name
+    order by referenced_schema, referenced_name, dependent_schema, dependent_name;
+[0m22:33:34.654839 [debug] [MainThread]: SQL status: SELECT 3 in 0 seconds
+[0m22:33:34.655851 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': '5d209384-495d-41b5-8bf5-c0d03422028a', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001BC01F97460>]}
+[0m22:33:34.656847 [debug] [MainThread]: On master: ROLLBACK
+[0m22:33:34.688409 [debug] [MainThread]: Using postgres connection "master"
+[0m22:33:34.689497 [debug] [MainThread]: On master: BEGIN
+[0m22:33:34.752808 [debug] [MainThread]: SQL status: BEGIN in 0 seconds
+[0m22:33:34.753885 [debug] [MainThread]: On master: COMMIT
+[0m22:33:34.754944 [debug] [MainThread]: Using postgres connection "master"
+[0m22:33:34.754944 [debug] [MainThread]: On master: COMMIT
+[0m22:33:34.787275 [debug] [MainThread]: SQL status: COMMIT in 0 seconds
+[0m22:33:34.788449 [debug] [MainThread]: On master: Close
+[0m22:33:34.789455 [info ] [MainThread]: Concurrency: 4 threads (target='dev')
+[0m22:33:34.791504 [info ] [MainThread]: 
+[0m22:33:34.797018 [debug] [Thread-1  ]: Began running node model.mimic.age_histogram
+[0m22:33:34.798121 [debug] [Thread-2  ]: Began running node model.mimic.basic_patient_info
+[0m22:33:34.797018 [info ] [Thread-1  ]: 1 of 2 START sql view model mimiciii_clinical.age_histogram .................... [RUN]
+[0m22:33:34.798121 [debug] [Thread-1  ]: Acquiring new postgres connection 'model.mimic.age_histogram'
+[0m22:33:34.798121 [info ] [Thread-2  ]: 2 of 2 START sql view model mimiciii_clinical.basic_patient_info ............... [RUN]
+[0m22:33:34.799069 [debug] [Thread-1  ]: Began compiling node model.mimic.age_histogram
+[0m22:33:34.799069 [debug] [Thread-2  ]: Acquiring new postgres connection 'model.mimic.basic_patient_info'
+[0m22:33:34.800044 [debug] [Thread-1  ]: Writing injected SQL for node "model.mimic.age_histogram"
+[0m22:33:34.801064 [debug] [Thread-2  ]: Began compiling node model.mimic.basic_patient_info
+[0m22:33:34.802057 [debug] [Thread-2  ]: Writing injected SQL for node "model.mimic.basic_patient_info"
+[0m22:33:34.803007 [debug] [Thread-1  ]: Timing info for model.mimic.age_histogram (compile): 2023-04-20 22:33:34.799069 => 2023-04-20 22:33:34.803007
+[0m22:33:34.803007 [debug] [Thread-2  ]: Timing info for model.mimic.basic_patient_info (compile): 2023-04-20 22:33:34.801064 => 2023-04-20 22:33:34.803007
+[0m22:33:34.803007 [debug] [Thread-1  ]: Began executing node model.mimic.age_histogram
+[0m22:33:34.803007 [debug] [Thread-2  ]: Began executing node model.mimic.basic_patient_info
+[0m22:33:34.853837 [debug] [Thread-2  ]: Writing runtime sql for node "model.mimic.basic_patient_info"
+[0m22:33:34.854833 [debug] [Thread-1  ]: Writing runtime sql for node "model.mimic.age_histogram"
+[0m22:33:34.855964 [debug] [Thread-2  ]: Using postgres connection "model.mimic.basic_patient_info"
+[0m22:33:34.855964 [debug] [Thread-2  ]: On model.mimic.basic_patient_info: BEGIN
+[0m22:33:34.856970 [debug] [Thread-2  ]: Opening a new connection, currently in state init
+[0m22:33:34.856970 [debug] [Thread-1  ]: Using postgres connection "model.mimic.age_histogram"
+[0m22:33:34.856970 [debug] [Thread-1  ]: On model.mimic.age_histogram: BEGIN
+[0m22:33:34.856970 [debug] [Thread-1  ]: Opening a new connection, currently in state init
+[0m22:33:35.111537 [debug] [Thread-2  ]: SQL status: BEGIN in 0 seconds
+[0m22:33:35.112610 [debug] [Thread-1  ]: SQL status: BEGIN in 0 seconds
+[0m22:33:35.113549 [debug] [Thread-2  ]: Using postgres connection "model.mimic.basic_patient_info"
+[0m22:33:35.114546 [debug] [Thread-1  ]: Using postgres connection "model.mimic.age_histogram"
+[0m22:33:35.114546 [debug] [Thread-2  ]: On model.mimic.basic_patient_info: /* {"app": "dbt", "dbt_version": "1.4.1", "profile_name": "mimic", "target_name": "dev", "node_id": "model.mimic.basic_patient_info"} */
+
+  create view "mimic"."mimiciii_clinical"."basic_patient_info__dbt_tmp" as (
+    -- ------------------------------------------------------------------
+-- Title: Retrieves basic patient information from the patients table
+-- Notes: this query does not specify a schema. To run it on your local
+-- MIMIC schema, run the following command:
+--  SET SEARCH_PATH TO mimiciii
+-- Where "mimiciii" is the name of your schema, and may be different.
+-- ------------------------------------------------------------------
+
+
+SELECT subject_id, gender, dob
+FROM patients
+  );
+[0m22:33:35.115590 [debug] [Thread-1  ]: On model.mimic.age_histogram: /* {"app": "dbt", "dbt_version": "1.4.1", "profile_name": "mimic", "target_name": "dev", "node_id": "model.mimic.age_histogram"} */
+
+  create view "mimic"."mimiciii_clinical"."age_histogram__dbt_tmp" as (
+    -- ------------------------------------------------------------------
+-- Title: Count the number of hospital admissions in equally sized bins of age
+-- Notes: this query does not specify a schema. To run it on your local
+-- MIMIC schema, run the following command:
+--  SET SEARCH_PATH TO mimiciii
+-- Where "mimiciii" is the name of your schema, and may be different.
+-- ------------------------------------------------------------------
+
+WITH agetbl AS
+(
+    SELECT DATETIME_DIFF(ad.admittime, p.dob, 'YEAR') AS age
+      FROM admissions ad
+      INNER JOIN patients p
+      ON ad.subject_id = p.subject_id
+)
+, agebin AS
+(
+      SELECT age, width_bucket(age, 15, 100, 85) AS bucket
+      FROM agetbl
+)
+SELECT bucket+15 as age, count(*)
+FROM agebin
+GROUP BY bucket
+ORDER BY bucket
+  );
+[0m22:33:35.155094 [debug] [Thread-2  ]: SQL status: CREATE VIEW in 0 seconds
+[0m22:33:35.155094 [debug] [Thread-1  ]: SQL status: CREATE VIEW in 0 seconds
+[0m22:33:35.161068 [debug] [Thread-2  ]: Using postgres connection "model.mimic.basic_patient_info"
+[0m22:33:35.164053 [debug] [Thread-1  ]: Using postgres connection "model.mimic.age_histogram"
+[0m22:33:35.164053 [debug] [Thread-2  ]: On model.mimic.basic_patient_info: /* {"app": "dbt", "dbt_version": "1.4.1", "profile_name": "mimic", "target_name": "dev", "node_id": "model.mimic.basic_patient_info"} */
+alter table "mimic"."mimiciii_clinical"."basic_patient_info" rename to "basic_patient_info__dbt_backup"
+[0m22:33:35.164053 [debug] [Thread-1  ]: On model.mimic.age_histogram: /* {"app": "dbt", "dbt_version": "1.4.1", "profile_name": "mimic", "target_name": "dev", "node_id": "model.mimic.age_histogram"} */
+alter table "mimic"."mimiciii_clinical"."age_histogram" rename to "age_histogram__dbt_backup"
+[0m22:33:35.195396 [debug] [Thread-2  ]: SQL status: ALTER TABLE in 0 seconds
+[0m22:33:35.197382 [debug] [Thread-2  ]: Using postgres connection "model.mimic.basic_patient_info"
+[0m22:33:35.197382 [debug] [Thread-2  ]: On model.mimic.basic_patient_info: /* {"app": "dbt", "dbt_version": "1.4.1", "profile_name": "mimic", "target_name": "dev", "node_id": "model.mimic.basic_patient_info"} */
+alter table "mimic"."mimiciii_clinical"."basic_patient_info__dbt_tmp" rename to "basic_patient_info"
+[0m22:33:35.198378 [debug] [Thread-1  ]: SQL status: ALTER TABLE in 0 seconds
+[0m22:33:35.200376 [debug] [Thread-1  ]: Using postgres connection "model.mimic.age_histogram"
+[0m22:33:35.200376 [debug] [Thread-1  ]: On model.mimic.age_histogram: /* {"app": "dbt", "dbt_version": "1.4.1", "profile_name": "mimic", "target_name": "dev", "node_id": "model.mimic.age_histogram"} */
+alter table "mimic"."mimiciii_clinical"."age_histogram__dbt_tmp" rename to "age_histogram"
+[0m22:33:35.230307 [debug] [Thread-2  ]: SQL status: ALTER TABLE in 0 seconds
+[0m22:33:35.241344 [debug] [Thread-1  ]: SQL status: ALTER TABLE in 0 seconds
+[0m22:33:35.251245 [debug] [Thread-1  ]: On model.mimic.age_histogram: COMMIT
+[0m22:33:35.252242 [debug] [Thread-1  ]: Using postgres connection "model.mimic.age_histogram"
+[0m22:33:35.252242 [debug] [Thread-1  ]: On model.mimic.age_histogram: COMMIT
+[0m22:33:35.256296 [debug] [Thread-2  ]: On model.mimic.basic_patient_info: COMMIT
+[0m22:33:35.256296 [debug] [Thread-2  ]: Using postgres connection "model.mimic.basic_patient_info"
+[0m22:33:35.256296 [debug] [Thread-2  ]: On model.mimic.basic_patient_info: COMMIT
+[0m22:33:35.286368 [debug] [Thread-1  ]: SQL status: COMMIT in 0 seconds
+[0m22:33:35.286368 [debug] [Thread-2  ]: SQL status: COMMIT in 0 seconds
+[0m22:33:35.291349 [debug] [Thread-1  ]: Using postgres connection "model.mimic.age_histogram"
+[0m22:33:35.293339 [debug] [Thread-2  ]: Using postgres connection "model.mimic.basic_patient_info"
+[0m22:33:35.293339 [debug] [Thread-1  ]: On model.mimic.age_histogram: /* {"app": "dbt", "dbt_version": "1.4.1", "profile_name": "mimic", "target_name": "dev", "node_id": "model.mimic.age_histogram"} */
+drop view if exists "mimic"."mimiciii_clinical"."age_histogram__dbt_backup" cascade
+[0m22:33:35.293339 [debug] [Thread-2  ]: On model.mimic.basic_patient_info: /* {"app": "dbt", "dbt_version": "1.4.1", "profile_name": "mimic", "target_name": "dev", "node_id": "model.mimic.basic_patient_info"} */
+drop view if exists "mimic"."mimiciii_clinical"."basic_patient_info__dbt_backup" cascade
+[0m22:33:35.329925 [debug] [Thread-2  ]: SQL status: DROP VIEW in 0 seconds
+[0m22:33:35.329925 [debug] [Thread-1  ]: SQL status: DROP VIEW in 0 seconds
+[0m22:33:35.332178 [debug] [Thread-2  ]: Timing info for model.mimic.basic_patient_info (execute): 2023-04-20 22:33:34.819953 => 2023-04-20 22:33:35.332178
+[0m22:33:35.334226 [debug] [Thread-1  ]: Timing info for model.mimic.age_histogram (execute): 2023-04-20 22:33:34.804004 => 2023-04-20 22:33:35.334226
+[0m22:33:35.334226 [debug] [Thread-2  ]: On model.mimic.basic_patient_info: Close
+[0m22:33:35.335168 [debug] [Thread-1  ]: On model.mimic.age_histogram: Close
+[0m22:33:35.336165 [debug] [Thread-2  ]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '5d209384-495d-41b5-8bf5-c0d03422028a', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001BC0212BC70>]}
+[0m22:33:35.337554 [debug] [Thread-1  ]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '5d209384-495d-41b5-8bf5-c0d03422028a', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001BC0212B850>]}
+[0m22:33:35.337161 [info ] [Thread-2  ]: 2 of 2 OK created sql view model mimiciii_clinical.basic_patient_info .......... [[32mCREATE VIEW[0m in 0.54s]
+[0m22:33:35.339809 [debug] [Thread-2  ]: Finished running node model.mimic.basic_patient_info
+[0m22:33:35.338560 [info ] [Thread-1  ]: 1 of 2 OK created sql view model mimiciii_clinical.age_histogram ............... [[32mCREATE VIEW[0m in 0.54s]
+[0m22:33:35.340838 [debug] [Thread-1  ]: Finished running node model.mimic.age_histogram
+[0m22:33:35.341759 [debug] [MainThread]: Acquiring new postgres connection 'master'
+[0m22:33:35.341759 [debug] [MainThread]: Using postgres connection "master"
+[0m22:33:35.341759 [debug] [MainThread]: On master: BEGIN
+[0m22:33:35.342765 [debug] [MainThread]: Opening a new connection, currently in state closed
+[0m22:33:35.592997 [debug] [MainThread]: SQL status: BEGIN in 0 seconds
+[0m22:33:35.594007 [debug] [MainThread]: On master: COMMIT
+[0m22:33:35.594007 [debug] [MainThread]: Using postgres connection "master"
+[0m22:33:35.595005 [debug] [MainThread]: On master: COMMIT
+[0m22:33:35.625422 [debug] [MainThread]: SQL status: COMMIT in 0 seconds
+[0m22:33:35.626486 [debug] [MainThread]: On master: Close
+[0m22:33:35.627426 [debug] [MainThread]: Connection 'master' was properly closed.
+[0m22:33:35.628477 [debug] [MainThread]: Connection 'list_mimic' was properly closed.
+[0m22:33:35.629418 [debug] [MainThread]: Connection 'list_mimic_mimiciii_clinical' was properly closed.
+[0m22:33:35.629418 [debug] [MainThread]: Connection 'model.mimic.age_histogram' was properly closed.
+[0m22:33:35.629418 [debug] [MainThread]: Connection 'model.mimic.basic_patient_info' was properly closed.
+[0m22:33:35.630475 [info ] [MainThread]: 
+[0m22:33:35.631416 [info ] [MainThread]: Finished running 2 view models in 0 hours 0 minutes and 1.98 seconds (1.98s).
+[0m22:33:35.632409 [debug] [MainThread]: Command end result
+[0m22:33:35.637395 [info ] [MainThread]: 
+[0m22:33:35.638390 [info ] [MainThread]: [32mCompleted successfully[0m
+[0m22:33:35.638593 [info ] [MainThread]: 
+[0m22:33:35.638593 [info ] [MainThread]: Done. PASS=2 WARN=0 ERROR=0 SKIP=0 TOTAL=2
+[0m22:33:35.639144 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001BC020FE9A0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001BC02220100>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001BC02220940>]}
+[0m22:33:35.639144 [debug] [MainThread]: Flushing usage events
+
+
+============================== 2023-04-20 23:11:59.898900 | d7e1c520-1d76-4921-bd62-45534edd4e21 ==============================
+[0m23:11:59.898900 [info ] [MainThread]: Running with dbt=1.4.1
+[0m23:11:59.899897 [debug] [MainThread]: running dbt with arguments {'write_json': True, 'use_colors': True, 'printer_width': 80, 'version_check': True, 'partial_parse': True, 'static_parser': True, 'profiles_dir': 'C:\\Users\\zshan\\.dbt', 'send_anonymous_usage_stats': True, 'quiet': False, 'no_print': False, 'cache_selected_only': False, 'which': 'clean', 'indirect_selection': 'eager'}
+[0m23:11:59.899897 [debug] [MainThread]: Tracking: tracking
+[0m23:11:59.910195 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002143C4B3040>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002143C4B3220>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002143C4FD340>]}
+[0m23:11:59.913185 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002143C4B3220>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002143C4B3250>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002143C4FDDC0>]}
+[0m23:11:59.913185 [debug] [MainThread]: Flushing usage events
+
+
+============================== 2023-04-20 23:12:03.613499 | 45390411-cdba-44e6-9477-d69faa79b97c ==============================
+[0m23:12:03.613499 [info ] [MainThread]: Running with dbt=1.4.1
+[0m23:12:03.614491 [debug] [MainThread]: running dbt with arguments {'write_json': True, 'use_colors': True, 'printer_width': 80, 'version_check': True, 'partial_parse': True, 'static_parser': True, 'profiles_dir': 'C:\\Users\\zshan\\.dbt', 'send_anonymous_usage_stats': True, 'quiet': False, 'no_print': False, 'cache_selected_only': False, 'which': 'run', 'rpc_method': 'run', 'indirect_selection': 'eager'}
+[0m23:12:03.614491 [debug] [MainThread]: Tracking: tracking
+[0m23:12:03.625455 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000029FA402A640>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000029FA402AFD0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000029FA402AA30>]}
+[0m23:12:03.633433 [info ] [MainThread]: Unable to do partial parsing because saved manifest not found. Starting full parse.
+[0m23:12:03.634425 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'partial_parser', 'label': '45390411-cdba-44e6-9477-d69faa79b97c', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000029FA402AC10>]}
+[0m23:12:04.118807 [debug] [MainThread]: 1699: static parser successfully parsed age_histogram.sql
+[0m23:12:04.128774 [debug] [MainThread]: 1699: static parser successfully parsed basic_patient_info.sql
+[0m23:12:04.157677 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'load_project', 'label': '45390411-cdba-44e6-9477-d69faa79b97c', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000029FA41062E0>]}
+[0m23:12:04.161660 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'resource_counts', 'label': '45390411-cdba-44e6-9477-d69faa79b97c', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000029FA403C220>]}
+[0m23:12:04.161660 [info ] [MainThread]: Found 2 models, 0 tests, 0 snapshots, 0 analyses, 289 macros, 0 operations, 0 seed files, 0 sources, 0 exposures, 0 metrics
+[0m23:12:04.162657 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': '45390411-cdba-44e6-9477-d69faa79b97c', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000029FA403A490>]}
+[0m23:12:04.162657 [info ] [MainThread]: 
+[0m23:12:04.164655 [debug] [MainThread]: Acquiring new postgres connection 'master'
+[0m23:12:04.165648 [debug] [ThreadPool]: Acquiring new postgres connection 'list_mimic'
+[0m23:12:04.174621 [debug] [ThreadPool]: Using postgres connection "list_mimic"
+[0m23:12:04.175618 [debug] [ThreadPool]: On list_mimic: /* {"app": "dbt", "dbt_version": "1.4.1", "profile_name": "mimic", "target_name": "dev", "connection_name": "list_mimic"} */
+
+    select distinct nspname from pg_namespace
+  
+[0m23:12:04.175618 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m23:12:04.440083 [debug] [ThreadPool]: SQL status: SELECT 8 in 0 seconds
+[0m23:12:04.441141 [debug] [ThreadPool]: On list_mimic: Close
+[0m23:12:04.443131 [debug] [ThreadPool]: Acquiring new postgres connection 'list_mimic_mimiciii_clinical'
+[0m23:12:04.448066 [debug] [ThreadPool]: Using postgres connection "list_mimic_mimiciii_clinical"
+[0m23:12:04.448066 [debug] [ThreadPool]: On list_mimic_mimiciii_clinical: BEGIN
+[0m23:12:04.448066 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m23:12:04.692847 [debug] [ThreadPool]: SQL status: BEGIN in 0 seconds
+[0m23:12:04.692847 [debug] [ThreadPool]: Using postgres connection "list_mimic_mimiciii_clinical"
+[0m23:12:04.692847 [debug] [ThreadPool]: On list_mimic_mimiciii_clinical: /* {"app": "dbt", "dbt_version": "1.4.1", "profile_name": "mimic", "target_name": "dev", "connection_name": "list_mimic_mimiciii_clinical"} */
+select
+      'mimic' as database,
+      tablename as name,
+      schemaname as schema,
+      'table' as type
+    from pg_tables
+    where schemaname ilike 'mimiciii_clinical'
+    union all
+    select
+      'mimic' as database,
+      viewname as name,
+      schemaname as schema,
+      'view' as type
+    from pg_views
+    where schemaname ilike 'mimiciii_clinical'
+  
+[0m23:12:04.756910 [debug] [ThreadPool]: SQL status: SELECT 336 in 0 seconds
+[0m23:12:04.762818 [debug] [ThreadPool]: On list_mimic_mimiciii_clinical: ROLLBACK
+[0m23:12:04.794078 [debug] [ThreadPool]: On list_mimic_mimiciii_clinical: Close
+[0m23:12:04.819902 [debug] [MainThread]: Using postgres connection "master"
+[0m23:12:04.820930 [debug] [MainThread]: On master: BEGIN
+[0m23:12:04.820930 [debug] [MainThread]: Opening a new connection, currently in state init
+[0m23:12:05.062864 [debug] [MainThread]: SQL status: BEGIN in 0 seconds
+[0m23:12:05.062864 [debug] [MainThread]: Using postgres connection "master"
+[0m23:12:05.062864 [debug] [MainThread]: On master: /* {"app": "dbt", "dbt_version": "1.4.1", "profile_name": "mimic", "target_name": "dev", "connection_name": "master"} */
+with relation as (
+        select
+            pg_rewrite.ev_class as class,
+            pg_rewrite.oid as id
+        from pg_rewrite
+    ),
+    class as (
+        select
+            oid as id,
+            relname as name,
+            relnamespace as schema,
+            relkind as kind
+        from pg_class
+    ),
+    dependency as (
+        select distinct
+            pg_depend.objid as id,
+            pg_depend.refobjid as ref
+        from pg_depend
+    ),
+    schema as (
+        select
+            pg_namespace.oid as id,
+            pg_namespace.nspname as name
+        from pg_namespace
+        where nspname != 'information_schema' and nspname not like 'pg\_%'
+    ),
+    referenced as (
+        select
+            relation.id AS id,
+            referenced_class.name ,
+            referenced_class.schema ,
+            referenced_class.kind
+        from relation
+        join class as referenced_class on relation.class=referenced_class.id
+        where referenced_class.kind in ('r', 'v')
+    ),
+    relationships as (
+        select
+            referenced.name as referenced_name,
+            referenced.schema as referenced_schema_id,
+            dependent_class.name as dependent_name,
+            dependent_class.schema as dependent_schema_id,
+            referenced.kind as kind
+        from referenced
+        join dependency on referenced.id=dependency.id
+        join class as dependent_class on dependency.ref=dependent_class.id
+        where
+            (referenced.name != dependent_class.name or
+             referenced.schema != dependent_class.schema)
+    )
+
+    select
+        referenced_schema.name as referenced_schema,
+        relationships.referenced_name as referenced_name,
+        dependent_schema.name as dependent_schema,
+        relationships.dependent_name as dependent_name
+    from relationships
+    join schema as dependent_schema on relationships.dependent_schema_id=dependent_schema.id
+    join schema as referenced_schema on relationships.referenced_schema_id=referenced_schema.id
+    group by referenced_schema, referenced_name, dependent_schema, dependent_name
+    order by referenced_schema, referenced_name, dependent_schema, dependent_name;
+[0m23:12:05.094076 [debug] [MainThread]: SQL status: SELECT 3 in 0 seconds
+[0m23:12:05.095086 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': '45390411-cdba-44e6-9477-d69faa79b97c', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000029FA4107310>]}
+[0m23:12:05.096077 [debug] [MainThread]: On master: ROLLBACK
+[0m23:12:05.125887 [debug] [MainThread]: Using postgres connection "master"
+[0m23:12:05.125887 [debug] [MainThread]: On master: BEGIN
+[0m23:12:05.184664 [debug] [MainThread]: SQL status: BEGIN in 0 seconds
+[0m23:12:05.184664 [debug] [MainThread]: On master: COMMIT
+[0m23:12:05.184664 [debug] [MainThread]: Using postgres connection "master"
+[0m23:12:05.185674 [debug] [MainThread]: On master: COMMIT
+[0m23:12:05.214851 [debug] [MainThread]: SQL status: COMMIT in 0 seconds
+[0m23:12:05.214851 [debug] [MainThread]: On master: Close
+[0m23:12:05.216106 [info ] [MainThread]: Concurrency: 4 threads (target='dev')
+[0m23:12:05.216106 [info ] [MainThread]: 
+[0m23:12:05.220097 [debug] [Thread-1  ]: Began running node model.mimic.age_histogram
+[0m23:12:05.221098 [debug] [Thread-2  ]: Began running node model.mimic.basic_patient_info
+[0m23:12:05.221098 [info ] [Thread-1  ]: 1 of 2 START sql view model mimiciii_clinical.age_histogram .................... [RUN]
+[0m23:12:05.222093 [debug] [Thread-1  ]: Acquiring new postgres connection 'model.mimic.age_histogram'
+[0m23:12:05.221098 [info ] [Thread-2  ]: 2 of 2 START sql view model mimiciii_clinical.basic_patient_info ............... [RUN]
+[0m23:12:05.222093 [debug] [Thread-1  ]: Began compiling node model.mimic.age_histogram
+[0m23:12:05.223091 [debug] [Thread-2  ]: Acquiring new postgres connection 'model.mimic.basic_patient_info'
+[0m23:12:05.224088 [debug] [Thread-1  ]: Writing injected SQL for node "model.mimic.age_histogram"
+[0m23:12:05.224088 [debug] [Thread-2  ]: Began compiling node model.mimic.basic_patient_info
+[0m23:12:05.226080 [debug] [Thread-2  ]: Writing injected SQL for node "model.mimic.basic_patient_info"
+[0m23:12:05.227074 [debug] [Thread-2  ]: Timing info for model.mimic.basic_patient_info (compile): 2023-04-20 23:12:05.225084 => 2023-04-20 23:12:05.227074
+[0m23:12:05.227074 [debug] [Thread-2  ]: Began executing node model.mimic.basic_patient_info
+[0m23:12:05.227074 [debug] [Thread-1  ]: Timing info for model.mimic.age_histogram (compile): 2023-04-20 23:12:05.223091 => 2023-04-20 23:12:05.227074
+[0m23:12:05.266945 [debug] [Thread-2  ]: Writing runtime sql for node "model.mimic.basic_patient_info"
+[0m23:12:05.266945 [debug] [Thread-1  ]: Began executing node model.mimic.age_histogram
+[0m23:12:05.276910 [debug] [Thread-1  ]: Writing runtime sql for node "model.mimic.age_histogram"
+[0m23:12:05.278899 [debug] [Thread-2  ]: Using postgres connection "model.mimic.basic_patient_info"
+[0m23:12:05.278899 [debug] [Thread-1  ]: Using postgres connection "model.mimic.age_histogram"
+[0m23:12:05.278899 [debug] [Thread-2  ]: On model.mimic.basic_patient_info: BEGIN
+[0m23:12:05.278899 [debug] [Thread-1  ]: On model.mimic.age_histogram: BEGIN
+[0m23:12:05.278899 [debug] [Thread-2  ]: Opening a new connection, currently in state init
+[0m23:12:05.279896 [debug] [Thread-1  ]: Opening a new connection, currently in state init
+[0m23:12:05.531087 [debug] [Thread-2  ]: SQL status: BEGIN in 0 seconds
+[0m23:12:05.531087 [debug] [Thread-2  ]: Using postgres connection "model.mimic.basic_patient_info"
+[0m23:12:05.531856 [debug] [Thread-2  ]: On model.mimic.basic_patient_info: /* {"app": "dbt", "dbt_version": "1.4.1", "profile_name": "mimic", "target_name": "dev", "node_id": "model.mimic.basic_patient_info"} */
+
+  create view "mimic"."mimiciii_clinical"."basic_patient_info__dbt_tmp" as (
+    -- ------------------------------------------------------------------
+-- Title: Retrieves basic patient information from the patients table
+-- Notes: this query does not specify a schema. To run it on your local
+-- MIMIC schema, run the following command:
+--  SET SEARCH_PATH TO mimiciii
+-- Where "mimiciii" is the name of your schema, and may be different.
+-- ------------------------------------------------------------------
+
+
+SELECT subject_id, gender, dob
+FROM patients
+  );
+[0m23:12:05.531856 [debug] [Thread-1  ]: SQL status: BEGIN in 0 seconds
+[0m23:12:05.531856 [debug] [Thread-1  ]: Using postgres connection "model.mimic.age_histogram"
+[0m23:12:05.531856 [debug] [Thread-1  ]: On model.mimic.age_histogram: /* {"app": "dbt", "dbt_version": "1.4.1", "profile_name": "mimic", "target_name": "dev", "node_id": "model.mimic.age_histogram"} */
+
+  create view "mimic"."mimiciii_clinical"."age_histogram__dbt_tmp" as (
+    -- ------------------------------------------------------------------
+-- Title: Count the number of hospital admissions in equally sized bins of age
+-- Notes: this query does not specify a schema. To run it on your local
+-- MIMIC schema, run the following command:
+--  SET SEARCH_PATH TO mimiciii
+-- Where "mimiciii" is the name of your schema, and may be different.
+-- ------------------------------------------------------------------
+
+WITH agetbl AS
+(
+    SELECT DATETIME_DIFF(ad.admittime, p.dob, 'YEAR') AS age
+      FROM admissions ad
+      INNER JOIN patients p
+      ON ad.subject_id = p.subject_id
+)
+, agebin AS
+(
+      SELECT age, width_bucket(age, 15, 100, 85) AS bucket
+      FROM agetbl
+)
+SELECT bucket+15 as age, count(*)
+FROM agebin
+GROUP BY bucket
+ORDER BY bucket
+  );
+[0m23:12:05.563687 [debug] [Thread-2  ]: SQL status: CREATE VIEW in 0 seconds
+[0m23:12:05.563687 [debug] [Thread-1  ]: SQL status: CREATE VIEW in 0 seconds
+[0m23:12:05.568677 [debug] [Thread-2  ]: Using postgres connection "model.mimic.basic_patient_info"
+[0m23:12:05.571736 [debug] [Thread-1  ]: Using postgres connection "model.mimic.age_histogram"
+[0m23:12:05.571736 [debug] [Thread-2  ]: On model.mimic.basic_patient_info: /* {"app": "dbt", "dbt_version": "1.4.1", "profile_name": "mimic", "target_name": "dev", "node_id": "model.mimic.basic_patient_info"} */
+alter table "mimic"."mimiciii_clinical"."basic_patient_info" rename to "basic_patient_info__dbt_backup"
+[0m23:12:05.571736 [debug] [Thread-1  ]: On model.mimic.age_histogram: /* {"app": "dbt", "dbt_version": "1.4.1", "profile_name": "mimic", "target_name": "dev", "node_id": "model.mimic.age_histogram"} */
+alter table "mimic"."mimiciii_clinical"."age_histogram" rename to "age_histogram__dbt_backup"
+[0m23:12:05.601688 [debug] [Thread-1  ]: SQL status: ALTER TABLE in 0 seconds
+[0m23:12:05.601688 [debug] [Thread-2  ]: SQL status: ALTER TABLE in 0 seconds
+[0m23:12:05.603692 [debug] [Thread-1  ]: Using postgres connection "model.mimic.age_histogram"
+[0m23:12:05.605691 [debug] [Thread-2  ]: Using postgres connection "model.mimic.basic_patient_info"
+[0m23:12:05.606687 [debug] [Thread-1  ]: On model.mimic.age_histogram: /* {"app": "dbt", "dbt_version": "1.4.1", "profile_name": "mimic", "target_name": "dev", "node_id": "model.mimic.age_histogram"} */
+alter table "mimic"."mimiciii_clinical"."age_histogram__dbt_tmp" rename to "age_histogram"
+[0m23:12:05.606687 [debug] [Thread-2  ]: On model.mimic.basic_patient_info: /* {"app": "dbt", "dbt_version": "1.4.1", "profile_name": "mimic", "target_name": "dev", "node_id": "model.mimic.basic_patient_info"} */
+alter table "mimic"."mimiciii_clinical"."basic_patient_info__dbt_tmp" rename to "basic_patient_info"
+[0m23:12:05.635691 [debug] [Thread-1  ]: SQL status: ALTER TABLE in 0 seconds
+[0m23:12:05.636685 [debug] [Thread-2  ]: SQL status: ALTER TABLE in 0 seconds
+[0m23:12:05.651638 [debug] [Thread-1  ]: On model.mimic.age_histogram: COMMIT
+[0m23:12:05.653629 [debug] [Thread-2  ]: On model.mimic.basic_patient_info: COMMIT
+[0m23:12:05.653629 [debug] [Thread-1  ]: Using postgres connection "model.mimic.age_histogram"
+[0m23:12:05.653629 [debug] [Thread-2  ]: Using postgres connection "model.mimic.basic_patient_info"
+[0m23:12:05.654625 [debug] [Thread-1  ]: On model.mimic.age_histogram: COMMIT
+[0m23:12:05.654625 [debug] [Thread-2  ]: On model.mimic.basic_patient_info: COMMIT
+[0m23:12:05.685700 [debug] [Thread-1  ]: SQL status: COMMIT in 0 seconds
+[0m23:12:05.685700 [debug] [Thread-2  ]: SQL status: COMMIT in 0 seconds
+[0m23:12:05.690692 [debug] [Thread-1  ]: Using postgres connection "model.mimic.age_histogram"
+[0m23:12:05.692738 [debug] [Thread-2  ]: Using postgres connection "model.mimic.basic_patient_info"
+[0m23:12:05.692738 [debug] [Thread-1  ]: On model.mimic.age_histogram: /* {"app": "dbt", "dbt_version": "1.4.1", "profile_name": "mimic", "target_name": "dev", "node_id": "model.mimic.age_histogram"} */
+drop view if exists "mimic"."mimiciii_clinical"."age_histogram__dbt_backup" cascade
+[0m23:12:05.692738 [debug] [Thread-2  ]: On model.mimic.basic_patient_info: /* {"app": "dbt", "dbt_version": "1.4.1", "profile_name": "mimic", "target_name": "dev", "node_id": "model.mimic.basic_patient_info"} */
+drop view if exists "mimic"."mimiciii_clinical"."basic_patient_info__dbt_backup" cascade
+[0m23:12:05.724898 [debug] [Thread-2  ]: SQL status: DROP VIEW in 0 seconds
+[0m23:12:05.725961 [debug] [Thread-2  ]: Timing info for model.mimic.basic_patient_info (execute): 2023-04-20 23:12:05.227074 => 2023-04-20 23:12:05.725961
+[0m23:12:05.725961 [debug] [Thread-2  ]: On model.mimic.basic_patient_info: Close
+[0m23:12:05.725961 [debug] [Thread-1  ]: SQL status: DROP VIEW in 0 seconds
+[0m23:12:05.726900 [debug] [Thread-2  ]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '45390411-cdba-44e6-9477-d69faa79b97c', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000029FA429ACD0>]}
+[0m23:12:05.727899 [debug] [Thread-1  ]: Timing info for model.mimic.age_histogram (execute): 2023-04-20 23:12:05.266945 => 2023-04-20 23:12:05.727899
+[0m23:12:05.727899 [debug] [Thread-1  ]: On model.mimic.age_histogram: Close
+[0m23:12:05.727899 [info ] [Thread-2  ]: 2 of 2 OK created sql view model mimiciii_clinical.basic_patient_info .......... [[32mCREATE VIEW[0m in 0.50s]
+[0m23:12:05.729899 [debug] [Thread-2  ]: Finished running node model.mimic.basic_patient_info
+[0m23:12:05.730888 [debug] [Thread-1  ]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '45390411-cdba-44e6-9477-d69faa79b97c', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000029FA42BEAC0>]}
+[0m23:12:05.730888 [info ] [Thread-1  ]: 1 of 2 OK created sql view model mimiciii_clinical.age_histogram ............... [[32mCREATE VIEW[0m in 0.51s]
+[0m23:12:05.731986 [debug] [Thread-1  ]: Finished running node model.mimic.age_histogram
+[0m23:12:05.732991 [debug] [MainThread]: Acquiring new postgres connection 'master'
+[0m23:12:05.733993 [debug] [MainThread]: Using postgres connection "master"
+[0m23:12:05.733993 [debug] [MainThread]: On master: BEGIN
+[0m23:12:05.733993 [debug] [MainThread]: Opening a new connection, currently in state closed
+[0m23:12:05.991688 [debug] [MainThread]: SQL status: BEGIN in 0 seconds
+[0m23:12:05.991688 [debug] [MainThread]: On master: COMMIT
+[0m23:12:05.992694 [debug] [MainThread]: Using postgres connection "master"
+[0m23:12:05.992694 [debug] [MainThread]: On master: COMMIT
+[0m23:12:06.023688 [debug] [MainThread]: SQL status: COMMIT in 0 seconds
+[0m23:12:06.023688 [debug] [MainThread]: On master: Close
+[0m23:12:06.024691 [debug] [MainThread]: Connection 'master' was properly closed.
+[0m23:12:06.024691 [debug] [MainThread]: Connection 'list_mimic' was properly closed.
+[0m23:12:06.024691 [debug] [MainThread]: Connection 'list_mimic_mimiciii_clinical' was properly closed.
+[0m23:12:06.024691 [debug] [MainThread]: Connection 'model.mimic.age_histogram' was properly closed.
+[0m23:12:06.025691 [debug] [MainThread]: Connection 'model.mimic.basic_patient_info' was properly closed.
+[0m23:12:06.025691 [info ] [MainThread]: 
+[0m23:12:06.025691 [info ] [MainThread]: Finished running 2 view models in 0 hours 0 minutes and 1.86 seconds (1.86s).
+[0m23:12:06.026683 [debug] [MainThread]: Command end result
+[0m23:12:06.031668 [info ] [MainThread]: 
+[0m23:12:06.031668 [info ] [MainThread]: [32mCompleted successfully[0m
+[0m23:12:06.031668 [info ] [MainThread]: 
+[0m23:12:06.032663 [info ] [MainThread]: Done. PASS=2 WARN=0 ERROR=0 SKIP=0 TOTAL=2
+[0m23:12:06.032663 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000029FA402ABE0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000029FA4397A30>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000029FA43971C0>]}
+[0m23:12:06.032663 [debug] [MainThread]: Flushing usage events
+
+
+============================== 2023-04-20 23:12:23.124655 | 4a8954f6-0348-42fc-a5cb-4d26b210336e ==============================
+[0m23:12:23.124655 [info ] [MainThread]: Running with dbt=1.4.1
+[0m23:12:23.125652 [debug] [MainThread]: running dbt with arguments {'write_json': True, 'use_colors': True, 'printer_width': 80, 'version_check': True, 'partial_parse': True, 'static_parser': True, 'profiles_dir': 'C:\\Users\\zshan\\.dbt', 'send_anonymous_usage_stats': True, 'quiet': False, 'no_print': False, 'cache_selected_only': False, 'which': 'clean', 'indirect_selection': 'eager'}
+[0m23:12:23.125652 [debug] [MainThread]: Tracking: tracking
+[0m23:12:23.135615 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000026F04183370>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000026F041CBF70>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000026F041CB1F0>]}
+[0m23:12:23.139602 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000026F04183370>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000026F041CB0A0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000026F041CB100>]}
+[0m23:12:23.139602 [debug] [MainThread]: Flushing usage events
+
+
+============================== 2023-04-20 23:12:42.825056 | 1f2272bc-42e0-4afb-957b-5b5dcc701f5d ==============================
+[0m23:12:42.825056 [info ] [MainThread]: Running with dbt=1.4.5
+[0m23:12:42.826310 [debug] [MainThread]: running dbt with arguments {'write_json': True, 'use_colors': True, 'printer_width': 80, 'version_check': True, 'partial_parse': True, 'static_parser': True, 'profiles_dir': 'C:\\Users\\zshan\\.dbt', 'send_anonymous_usage_stats': True, 'quiet': False, 'no_print': False, 'cache_selected_only': False, 'which': 'clean', 'indirect_selection': 'eager'}
+[0m23:12:42.826310 [debug] [MainThread]: Tracking: tracking
+[0m23:12:42.837236 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000028E4CE2C160>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000028E4CDD8AF0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000028E4CDD8610>]}
+[0m23:12:42.838233 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000028E4CE2C160>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000028E4CDD8FA0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000028E4CDD8D30>]}
+[0m23:12:42.839231 [debug] [MainThread]: Flushing usage events
+
+
+============================== 2023-04-20 23:14:38.526637 | 1734ff98-a23c-4006-bd5c-c667a7416f0b ==============================
+[0m23:14:38.526637 [info ] [MainThread]: Running with dbt=1.4.5
+[0m23:14:38.527644 [debug] [MainThread]: running dbt with arguments {'write_json': True, 'use_colors': True, 'printer_width': 80, 'version_check': True, 'partial_parse': True, 'static_parser': True, 'profiles_dir': 'C:\\Users\\zshan\\.dbt', 'send_anonymous_usage_stats': True, 'quiet': False, 'no_print': False, 'cache_selected_only': False, 'which': 'run', 'rpc_method': 'run', 'indirect_selection': 'eager'}
+[0m23:14:38.527644 [debug] [MainThread]: Tracking: tracking
+[0m23:14:38.539598 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002A068B574C0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002A068B57CA0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002A068B57850>]}
+[0m23:14:38.552873 [debug] [MainThread]: checksum: e05dd7cee44d39ae8ac27965cacd8a6d8d0ab4e8185101e0db84e98f79bee0b6, vars: {}, profile: None, target: None, version: 1.4.5
+[0m23:14:38.552873 [info ] [MainThread]: Unable to do partial parsing because saved manifest not found. Starting full parse.
+[0m23:14:38.553869 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'partial_parser', 'label': '1734ff98-a23c-4006-bd5c-c667a7416f0b', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002A068B57940>]}
+[0m23:14:39.238953 [debug] [MainThread]: 1699: static parser successfully parsed age_histogram.sql
+[0m23:14:39.248920 [debug] [MainThread]: 1699: static parser successfully parsed basic_patient_info.sql
+[0m23:14:39.277823 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'load_project', 'label': '1734ff98-a23c-4006-bd5c-c667a7416f0b', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002A068C89BB0>]}
+[0m23:14:39.281810 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'resource_counts', 'label': '1734ff98-a23c-4006-bd5c-c667a7416f0b', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002A068BC6D00>]}
+[0m23:14:39.281810 [info ] [MainThread]: Found 2 models, 0 tests, 0 snapshots, 0 analyses, 291 macros, 0 operations, 0 seed files, 0 sources, 0 exposures, 0 metrics
+[0m23:14:39.282741 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': '1734ff98-a23c-4006-bd5c-c667a7416f0b', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002A068CC48E0>]}
+[0m23:14:39.282741 [info ] [MainThread]: 
+[0m23:14:39.284790 [debug] [MainThread]: Acquiring new postgres connection 'master'
+[0m23:14:39.285739 [debug] [ThreadPool]: Acquiring new postgres connection 'list_mimic'
+[0m23:14:39.293718 [debug] [ThreadPool]: Using postgres connection "list_mimic"
+[0m23:14:39.293718 [debug] [ThreadPool]: On list_mimic: /* {"app": "dbt", "dbt_version": "1.4.5", "profile_name": "mimic", "target_name": "dev", "connection_name": "list_mimic"} */
+
+    select distinct nspname from pg_namespace
+  
+[0m23:14:39.293718 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m23:14:39.582426 [debug] [ThreadPool]: SQL status: SELECT 8 in 0 seconds
+[0m23:14:39.586485 [debug] [ThreadPool]: On list_mimic: Close
+[0m23:14:39.589413 [debug] [ThreadPool]: Acquiring new postgres connection 'list_mimic_mimiciii_clinical'
+[0m23:14:39.597384 [debug] [ThreadPool]: Using postgres connection "list_mimic_mimiciii_clinical"
+[0m23:14:39.597384 [debug] [ThreadPool]: On list_mimic_mimiciii_clinical: BEGIN
+[0m23:14:39.598381 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m23:14:39.856503 [debug] [ThreadPool]: SQL status: BEGIN in 0 seconds
+[0m23:14:39.857584 [debug] [ThreadPool]: Using postgres connection "list_mimic_mimiciii_clinical"
+[0m23:14:39.858640 [debug] [ThreadPool]: On list_mimic_mimiciii_clinical: /* {"app": "dbt", "dbt_version": "1.4.5", "profile_name": "mimic", "target_name": "dev", "connection_name": "list_mimic_mimiciii_clinical"} */
+select
+      'mimic' as database,
+      tablename as name,
+      schemaname as schema,
+      'table' as type
+    from pg_tables
+    where schemaname ilike 'mimiciii_clinical'
+    union all
+    select
+      'mimic' as database,
+      viewname as name,
+      schemaname as schema,
+      'view' as type
+    from pg_views
+    where schemaname ilike 'mimiciii_clinical'
+  
+[0m23:14:39.925754 [debug] [ThreadPool]: SQL status: SELECT 336 in 0 seconds
+[0m23:14:39.931729 [debug] [ThreadPool]: On list_mimic_mimiciii_clinical: ROLLBACK
+[0m23:14:39.962003 [debug] [ThreadPool]: On list_mimic_mimiciii_clinical: Close
+[0m23:14:39.988208 [debug] [MainThread]: Using postgres connection "master"
+[0m23:14:39.988208 [debug] [MainThread]: On master: BEGIN
+[0m23:14:39.989208 [debug] [MainThread]: Opening a new connection, currently in state init
+[0m23:14:40.244389 [debug] [MainThread]: SQL status: BEGIN in 0 seconds
+[0m23:14:40.245423 [debug] [MainThread]: Using postgres connection "master"
+[0m23:14:40.245423 [debug] [MainThread]: On master: /* {"app": "dbt", "dbt_version": "1.4.5", "profile_name": "mimic", "target_name": "dev", "connection_name": "master"} */
+with relation as (
+        select
+            pg_rewrite.ev_class as class,
+            pg_rewrite.oid as id
+        from pg_rewrite
+    ),
+    class as (
+        select
+            oid as id,
+            relname as name,
+            relnamespace as schema,
+            relkind as kind
+        from pg_class
+    ),
+    dependency as (
+        select distinct
+            pg_depend.objid as id,
+            pg_depend.refobjid as ref
+        from pg_depend
+    ),
+    schema as (
+        select
+            pg_namespace.oid as id,
+            pg_namespace.nspname as name
+        from pg_namespace
+        where nspname != 'information_schema' and nspname not like 'pg\_%'
+    ),
+    referenced as (
+        select
+            relation.id AS id,
+            referenced_class.name ,
+            referenced_class.schema ,
+            referenced_class.kind
+        from relation
+        join class as referenced_class on relation.class=referenced_class.id
+        where referenced_class.kind in ('r', 'v')
+    ),
+    relationships as (
+        select
+            referenced.name as referenced_name,
+            referenced.schema as referenced_schema_id,
+            dependent_class.name as dependent_name,
+            dependent_class.schema as dependent_schema_id,
+            referenced.kind as kind
+        from referenced
+        join dependency on referenced.id=dependency.id
+        join class as dependent_class on dependency.ref=dependent_class.id
+        where
+            (referenced.name != dependent_class.name or
+             referenced.schema != dependent_class.schema)
+    )
+
+    select
+        referenced_schema.name as referenced_schema,
+        relationships.referenced_name as referenced_name,
+        dependent_schema.name as dependent_schema,
+        relationships.dependent_name as dependent_name
+    from relationships
+    join schema as dependent_schema on relationships.dependent_schema_id=dependent_schema.id
+    join schema as referenced_schema on relationships.referenced_schema_id=referenced_schema.id
+    group by referenced_schema, referenced_name, dependent_schema, dependent_name
+    order by referenced_schema, referenced_name, dependent_schema, dependent_name;
+[0m23:14:40.277579 [debug] [MainThread]: SQL status: SELECT 3 in 0 seconds
+[0m23:14:40.280633 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': '1734ff98-a23c-4006-bd5c-c667a7416f0b', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002A068C89AF0>]}
+[0m23:14:40.281633 [debug] [MainThread]: On master: ROLLBACK
+[0m23:14:40.313808 [debug] [MainThread]: Using postgres connection "master"
+[0m23:14:40.313808 [debug] [MainThread]: On master: BEGIN
+[0m23:14:40.376078 [debug] [MainThread]: SQL status: BEGIN in 0 seconds
+[0m23:14:40.377087 [debug] [MainThread]: On master: COMMIT
+[0m23:14:40.378092 [debug] [MainThread]: Using postgres connection "master"
+[0m23:14:40.379079 [debug] [MainThread]: On master: COMMIT
+[0m23:14:40.411691 [debug] [MainThread]: SQL status: COMMIT in 0 seconds
+[0m23:14:40.411691 [debug] [MainThread]: On master: Close
+[0m23:14:40.412697 [info ] [MainThread]: Concurrency: 4 threads (target='dev')
+[0m23:14:40.414200 [info ] [MainThread]: 
+[0m23:14:40.423754 [debug] [Thread-1  ]: Began running node model.mimic.age_histogram
+[0m23:14:40.424823 [debug] [Thread-2  ]: Began running node model.mimic.basic_patient_info
+[0m23:14:40.424823 [info ] [Thread-1  ]: 1 of 2 START sql view model mimiciii_clinical.age_histogram .................... [RUN]
+[0m23:14:40.425822 [debug] [Thread-1  ]: Acquiring new postgres connection 'model.mimic.age_histogram'
+[0m23:14:40.424823 [info ] [Thread-2  ]: 2 of 2 START sql view model mimiciii_clinical.basic_patient_info ............... [RUN]
+[0m23:14:40.425822 [debug] [Thread-1  ]: Began compiling node model.mimic.age_histogram
+[0m23:14:40.425822 [debug] [Thread-2  ]: Acquiring new postgres connection 'model.mimic.basic_patient_info'
+[0m23:14:40.427749 [debug] [Thread-1  ]: Writing injected SQL for node "model.mimic.age_histogram"
+[0m23:14:40.427749 [debug] [Thread-2  ]: Began compiling node model.mimic.basic_patient_info
+[0m23:14:40.428751 [debug] [Thread-2  ]: Writing injected SQL for node "model.mimic.basic_patient_info"
+[0m23:14:40.429746 [debug] [Thread-2  ]: Timing info for model.mimic.basic_patient_info (compile): 2023-04-20 23:14:40.427749 => 2023-04-20 23:14:40.429746
+[0m23:14:40.429746 [debug] [Thread-2  ]: Began executing node model.mimic.basic_patient_info
+[0m23:14:40.430739 [debug] [Thread-1  ]: Timing info for model.mimic.age_histogram (compile): 2023-04-20 23:14:40.426813 => 2023-04-20 23:14:40.430739
+[0m23:14:40.467617 [debug] [Thread-2  ]: Writing runtime sql for node "model.mimic.basic_patient_info"
+[0m23:14:40.467863 [debug] [Thread-1  ]: Began executing node model.mimic.age_histogram
+[0m23:14:40.476199 [debug] [Thread-1  ]: Writing runtime sql for node "model.mimic.age_histogram"
+[0m23:14:40.478133 [debug] [Thread-2  ]: Using postgres connection "model.mimic.basic_patient_info"
+[0m23:14:40.478133 [debug] [Thread-2  ]: On model.mimic.basic_patient_info: BEGIN
+[0m23:14:40.478133 [debug] [Thread-2  ]: Opening a new connection, currently in state init
+[0m23:14:40.478133 [debug] [Thread-1  ]: Using postgres connection "model.mimic.age_histogram"
+[0m23:14:40.479129 [debug] [Thread-1  ]: On model.mimic.age_histogram: BEGIN
+[0m23:14:40.479129 [debug] [Thread-1  ]: Opening a new connection, currently in state init
+[0m23:14:40.716500 [debug] [Thread-1  ]: SQL status: BEGIN in 0 seconds
+[0m23:14:40.717520 [debug] [Thread-1  ]: Using postgres connection "model.mimic.age_histogram"
+[0m23:14:40.718576 [debug] [Thread-1  ]: On model.mimic.age_histogram: /* {"app": "dbt", "dbt_version": "1.4.5", "profile_name": "mimic", "target_name": "dev", "node_id": "model.mimic.age_histogram"} */
+
+  create view "mimic"."mimiciii_clinical"."age_histogram__dbt_tmp" as (
+    -- ------------------------------------------------------------------
+-- Title: Count the number of hospital admissions in equally sized bins of age
+-- Notes: this query does not specify a schema. To run it on your local
+-- MIMIC schema, run the following command:
+--  SET SEARCH_PATH TO mimiciii
+-- Where "mimiciii" is the name of your schema, and may be different.
+-- ------------------------------------------------------------------
+
+WITH agetbl AS
+(
+    SELECT DATETIME_DIFF(ad.admittime, p.dob, 'YEAR') AS age
+      FROM admissions ad
+      INNER JOIN patients p
+      ON ad.subject_id = p.subject_id
+)
+, agebin AS
+(
+      SELECT age, width_bucket(age, 15, 100, 85) AS bucket
+      FROM agetbl
+)
+SELECT bucket+15 as age, count(*)
+FROM agebin
+GROUP BY bucket
+ORDER BY bucket
+  );
+[0m23:14:40.747329 [debug] [Thread-2  ]: SQL status: BEGIN in 0 seconds
+[0m23:14:40.748242 [debug] [Thread-1  ]: SQL status: CREATE VIEW in 0 seconds
+[0m23:14:40.749673 [debug] [Thread-2  ]: Using postgres connection "model.mimic.basic_patient_info"
+[0m23:14:40.757417 [debug] [Thread-1  ]: Using postgres connection "model.mimic.age_histogram"
+[0m23:14:40.757417 [debug] [Thread-2  ]: On model.mimic.basic_patient_info: /* {"app": "dbt", "dbt_version": "1.4.5", "profile_name": "mimic", "target_name": "dev", "node_id": "model.mimic.basic_patient_info"} */
+
+  create view "mimic"."mimiciii_clinical"."basic_patient_info__dbt_tmp" as (
+    -- ------------------------------------------------------------------
+-- Title: Retrieves basic patient information from the patients table
+-- Notes: this query does not specify a schema. To run it on your local
+-- MIMIC schema, run the following command:
+--  SET SEARCH_PATH TO mimiciii
+-- Where "mimiciii" is the name of your schema, and may be different.
+-- ------------------------------------------------------------------
+
+
+SELECT subject_id, gender, dob
+FROM patients
+  );
+[0m23:14:40.757417 [debug] [Thread-1  ]: On model.mimic.age_histogram: /* {"app": "dbt", "dbt_version": "1.4.5", "profile_name": "mimic", "target_name": "dev", "node_id": "model.mimic.age_histogram"} */
+alter table "mimic"."mimiciii_clinical"."age_histogram" rename to "age_histogram__dbt_backup"
+[0m23:14:40.787743 [debug] [Thread-1  ]: SQL status: ALTER TABLE in 0 seconds
+[0m23:14:40.790681 [debug] [Thread-1  ]: Using postgres connection "model.mimic.age_histogram"
+[0m23:14:40.790681 [debug] [Thread-1  ]: On model.mimic.age_histogram: /* {"app": "dbt", "dbt_version": "1.4.5", "profile_name": "mimic", "target_name": "dev", "node_id": "model.mimic.age_histogram"} */
+alter table "mimic"."mimiciii_clinical"."age_histogram__dbt_tmp" rename to "age_histogram"
+[0m23:14:40.790681 [debug] [Thread-2  ]: SQL status: CREATE VIEW in 0 seconds
+[0m23:14:40.793675 [debug] [Thread-2  ]: Using postgres connection "model.mimic.basic_patient_info"
+[0m23:14:40.793675 [debug] [Thread-2  ]: On model.mimic.basic_patient_info: /* {"app": "dbt", "dbt_version": "1.4.5", "profile_name": "mimic", "target_name": "dev", "node_id": "model.mimic.basic_patient_info"} */
+alter table "mimic"."mimiciii_clinical"."basic_patient_info" rename to "basic_patient_info__dbt_backup"
+[0m23:14:40.820741 [debug] [Thread-1  ]: SQL status: ALTER TABLE in 0 seconds
+[0m23:14:40.834752 [debug] [Thread-1  ]: On model.mimic.age_histogram: COMMIT
+[0m23:14:40.834752 [debug] [Thread-1  ]: Using postgres connection "model.mimic.age_histogram"
+[0m23:14:40.834752 [debug] [Thread-1  ]: On model.mimic.age_histogram: COMMIT
+[0m23:14:40.835762 [debug] [Thread-2  ]: SQL status: ALTER TABLE in 0 seconds
+[0m23:14:40.837743 [debug] [Thread-2  ]: Using postgres connection "model.mimic.basic_patient_info"
+[0m23:14:40.837743 [debug] [Thread-2  ]: On model.mimic.basic_patient_info: /* {"app": "dbt", "dbt_version": "1.4.5", "profile_name": "mimic", "target_name": "dev", "node_id": "model.mimic.basic_patient_info"} */
+alter table "mimic"."mimiciii_clinical"."basic_patient_info__dbt_tmp" rename to "basic_patient_info"
+[0m23:14:40.865722 [debug] [Thread-1  ]: SQL status: COMMIT in 0 seconds
+[0m23:14:40.866790 [debug] [Thread-2  ]: SQL status: ALTER TABLE in 0 seconds
+[0m23:14:40.875702 [debug] [Thread-1  ]: Using postgres connection "model.mimic.age_histogram"
+[0m23:14:40.877447 [debug] [Thread-2  ]: On model.mimic.basic_patient_info: COMMIT
+[0m23:14:40.877447 [debug] [Thread-1  ]: On model.mimic.age_histogram: /* {"app": "dbt", "dbt_version": "1.4.5", "profile_name": "mimic", "target_name": "dev", "node_id": "model.mimic.age_histogram"} */
+drop view if exists "mimic"."mimiciii_clinical"."age_histogram__dbt_backup" cascade
+[0m23:14:40.877447 [debug] [Thread-2  ]: Using postgres connection "model.mimic.basic_patient_info"
+[0m23:14:40.878445 [debug] [Thread-2  ]: On model.mimic.basic_patient_info: COMMIT
+[0m23:14:40.909847 [debug] [Thread-2  ]: SQL status: COMMIT in 0 seconds
+[0m23:14:40.909847 [debug] [Thread-1  ]: SQL status: DROP VIEW in 0 seconds
+[0m23:14:40.911883 [debug] [Thread-2  ]: Using postgres connection "model.mimic.basic_patient_info"
+[0m23:14:40.913872 [debug] [Thread-1  ]: Timing info for model.mimic.age_histogram (execute): 2023-04-20 23:14:40.468158 => 2023-04-20 23:14:40.913872
+[0m23:14:40.913872 [debug] [Thread-2  ]: On model.mimic.basic_patient_info: /* {"app": "dbt", "dbt_version": "1.4.5", "profile_name": "mimic", "target_name": "dev", "node_id": "model.mimic.basic_patient_info"} */
+drop view if exists "mimic"."mimiciii_clinical"."basic_patient_info__dbt_backup" cascade
+[0m23:14:40.913872 [debug] [Thread-1  ]: On model.mimic.age_histogram: Close
+[0m23:14:40.914867 [debug] [Thread-1  ]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '1734ff98-a23c-4006-bd5c-c667a7416f0b', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002A068DF9B50>]}
+[0m23:14:40.915866 [info ] [Thread-1  ]: 1 of 2 OK created sql view model mimiciii_clinical.age_histogram ............... [[32mCREATE VIEW[0m in 0.49s]
+[0m23:14:40.916866 [debug] [Thread-1  ]: Finished running node model.mimic.age_histogram
+[0m23:14:40.944986 [debug] [Thread-2  ]: SQL status: DROP VIEW in 0 seconds
+[0m23:14:40.947029 [debug] [Thread-2  ]: Timing info for model.mimic.basic_patient_info (execute): 2023-04-20 23:14:40.430739 => 2023-04-20 23:14:40.947029
+[0m23:14:40.948027 [debug] [Thread-2  ]: On model.mimic.basic_patient_info: Close
+[0m23:14:40.949023 [debug] [Thread-2  ]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '1734ff98-a23c-4006-bd5c-c667a7416f0b', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002A068E63EE0>]}
+[0m23:14:40.949023 [info ] [Thread-2  ]: 2 of 2 OK created sql view model mimiciii_clinical.basic_patient_info .......... [[32mCREATE VIEW[0m in 0.52s]
+[0m23:14:40.950021 [debug] [Thread-2  ]: Finished running node model.mimic.basic_patient_info
+[0m23:14:40.952012 [debug] [MainThread]: Acquiring new postgres connection 'master'
+[0m23:14:40.952012 [debug] [MainThread]: Using postgres connection "master"
+[0m23:14:40.953009 [debug] [MainThread]: On master: BEGIN
+[0m23:14:40.953009 [debug] [MainThread]: Opening a new connection, currently in state closed
+[0m23:14:41.191446 [debug] [MainThread]: SQL status: BEGIN in 0 seconds
+[0m23:14:41.191446 [debug] [MainThread]: On master: COMMIT
+[0m23:14:41.191446 [debug] [MainThread]: Using postgres connection "master"
+[0m23:14:41.192453 [debug] [MainThread]: On master: COMMIT
+[0m23:14:41.221971 [debug] [MainThread]: SQL status: COMMIT in 0 seconds
+[0m23:14:41.221971 [debug] [MainThread]: On master: Close
+[0m23:14:41.223035 [debug] [MainThread]: Connection 'master' was properly closed.
+[0m23:14:41.223035 [debug] [MainThread]: Connection 'list_mimic' was properly closed.
+[0m23:14:41.224095 [debug] [MainThread]: Connection 'list_mimic_mimiciii_clinical' was properly closed.
+[0m23:14:41.224095 [debug] [MainThread]: Connection 'model.mimic.age_histogram' was properly closed.
+[0m23:14:41.224095 [debug] [MainThread]: Connection 'model.mimic.basic_patient_info' was properly closed.
+[0m23:14:41.224095 [info ] [MainThread]: 
+[0m23:14:41.225159 [info ] [MainThread]: Finished running 2 view models in 0 hours 0 minutes and 1.94 seconds (1.94s).
+[0m23:14:41.226407 [debug] [MainThread]: Command end result
+[0m23:14:41.230471 [info ] [MainThread]: 
+[0m23:14:41.230471 [info ] [MainThread]: [32mCompleted successfully[0m
+[0m23:14:41.231874 [info ] [MainThread]: 
+[0m23:14:41.231874 [info ] [MainThread]: Done. PASS=2 WARN=0 ERROR=0 SKIP=0 TOTAL=2
+[0m23:14:41.232922 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002A068C89880>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002A068CC48E0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002A068C88580>]}
+[0m23:14:41.232922 [debug] [MainThread]: Flushing usage events

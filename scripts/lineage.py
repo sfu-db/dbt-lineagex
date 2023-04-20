@@ -61,6 +61,7 @@ class Lineage:
             self.output_dict[key]["columns"] = col_lineage.column_dict
             self.output_dict[key]["table_name"] = table_name
             #self.output_dict[key]["plan"] = plan["Plan"]
+        _produce_json(self.output_dict, self.faldbt)
 
     def _get_part_tables(self) -> dict:
         """
@@ -82,7 +83,7 @@ class Lineage:
 
 if __name__ == "__main__":
     lineage_output = Lineage("D:\\Archive")
-    output_dict = _produce_json(lineage_output.output_dict, lineage_output.faldbt)
+    #output_dict = _produce_json(lineage_output.output_dict, lineage_output.faldbt)
     #print(str(output_dict))
     # with open("table_output.json", "w") as outfile:
     #     json.dump(lineage_output.output_dict, outfile)
