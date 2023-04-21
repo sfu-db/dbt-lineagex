@@ -1,141 +1,42 @@
-### Overview
-1. Prerequisites
-1. Configure credentials
-1. Setup Postgres (optional)
-1. Setup virtual environment
-1. Installation for development
-1. Run the integration tests
-1. Run tests
-1. Creating a new integration test
+# Column Level Lineage Graph for dbt
 
-### Prerequisites
-- python3
-- Docker (optional)
+Have you ever wondered what is the column level relationship between the dbt models? Worry not, this tool is intended to help you by creating an interactive graph on a webpage to explore the column level lineage among your models(Currently only supports Postgres, other connection types are under development)!
 
-### Configure credentials
-Edit the env file for your TARGET in `integration_tests/.env/[TARGET].env`.
+## Requirements
+`dbt version >= 1.0.0`
 
-Load the environment variables:
-```shell
-set -a; source integration_tests/.env/[TARGET].env; set +a
+## Installation
+New to dbt packages? Read more about them [here](https://docs.getdbt.com/docs/building-a-dbt-project/package-management/).
+1. Include this package in your `packages.yml` file.
+```
+packages:
+  - git: "https://github.com/zshandy/dbt-column_lineage.git"
 ```
 
-or more specific:
-```shell
-set -a; source integration_tests/.env/postgres.env; set +a
+2. Run `dbt deps` to install the package.
+
+## Quickstart
+If you don't have your dbt already ran yet, change directory to your main folder and run:
+`dbt run`
+
+After you've finished running your dbt project, change directory to the "/dbt_packages/column_lineage/scripts" folder and run:
+> **Note** Recommended to have a virtual environment setup for running the Python scripts, as it could fight with other dependencies(Currently it is more like a Python project, but will try to make changes to it so that only changes to the dbt_project.yml needs to be made for running)
+
+```
+- pip install -r requirements.txt
+- python main.py
 ```
 
-#### Setup Postgres (optional)
+This would create the index.html in the scripts folder, and just start a http server in the folder and you get to see the graph
+sample command: `php -S localhost:8000`
 
-Docker and `docker-compose` are both used in testing. Specific instructions for your OS can be found [here](https://docs.docker.com/get-docker/).
+## How to use
 
-Postgres offers the easiest way to test most `dbt-codegen` functionality today. Its tests are the fastest to run, and the easiest to set up. To run the Postgres integration tests, you'll have to do one extra step of setting up the test database:
+- Start by clicking the star on the right(search) and input a model name that you want to start with.
+- It should show a table on the canvas with table names and its columns, by clicking the "explore" button on the top right, it will show all the downstream and upstream tables that are related to the columns.
+- Hovering over a column will highlight its downstream and upstream columns as well.
+- You can navigate through the canvas by clicking "explore" on other tables.
 
-```shell
-make setup-db
-```
-or, alternatively:
-```shell
-docker-compose up --detach postgres
-```
-
-### Setup virtual environment
-
-We strongly recommend using virtual environments when developing code in `dbt-codegen`. We recommend creating this virtualenv
-in the root of the `dbt-codegen` repository. To create a new virtualenv, run:
-```shell
-python3 -m venv env
-source env/bin/activate
-```
-
-This will create and activate a new Python virtual environment.
-
-### Installation for development
-
-First make sure that you set up your virtual environment as described above. Also ensure you have the latest version of pip and setuptools installed:
-```
-python -m pip install --upgrade pip setuptools
-```
-
-Next, install `dbt-core` (and its dependencies) with:
-
-```shell
-make dev target=[postgres|redshift|...]
-# or
-pip install --pre dbt-core dbt-[postgres|redshift|...]
-```
-
-or more specific:
-
-```shell
-make dev target=postgres
-# or
-pip install --pre dbt-core dbt-postgres
-```
-
-### Run the integration tests
-
-To run all the integration tests on your local machine like they will get run in the CI (using CircleCI):
-
-```shell
-make test target=[postgres|redshift|...]
-# or
-./run_test.sh [postgres|redshift|...]
-```
-
-or more specific:
-
-```shell
-make test target=postgres
-# or
-./run_test.sh postgres
-```
-
-Where possible, targets can run in docker containers (this works for Postgres or in the future Spark for example). For managed services like Snowflake, BigQuery and Redshift this is not possible, hence your own configuration for these services has to be provided in the appropriate env files in `integration_tests/.env/[TARGET].env`
-
-### Creating a new integration test
-
-#### Set up profiles
-Do one of the following:
-1. Use the `profiles.yml` in the current working directory for dbt Core 1.3 and above
-    ```shell
-    cp integration_tests/ci/sample.profiles.yml integration_tests/profiles.yml
-    ```
-1. Use `DBT_PROFILES_DIR`
-    ```shell
-    cp integration_tests/ci/sample.profiles.yml integration_tests/profiles.yml
-    export DBT_PROFILES_DIR=$(cd integration_tests && pwd)
-    ```
-1. Use `~/.dbt/profiles.yml`
-    - Copy contents from `integration_tests/ci/sample.profiles.yml` into `~/.dbt/profiles.yml`.
-
-#### Add your integration test
-This directory contains an example dbt project which tests the macros in the `dbt-codegen` package. An integration test typically involves making:
-1. a new seed file
-2. a new model file
-3. a generic test to assert anticipated behaviour.
-
-For an example of integration tests, check out the tests for the `get_url_parameter` macro in the `dbt-utils` project:
-
-1. [Macro definition](https://github.com/dbt-labs/dbt-utils/blob/main/macros/web/get_url_parameter.sql)
-2. [Seed file with fake data](https://github.com/dbt-labs/dbt-utils/blob/main/integration_tests/data/web/data_urls.csv)
-3. [Model to test the macro](https://github.com/dbt-labs/dbt-utils/blob/main/integration_tests/models/web/test_urls.sql)
-4. [A generic test to assert the macro works as expected](https://github.com/dbt-labs/dbt-utils/blob/main/integration_tests/models/web/schema.yml)
-
-Once you've added all of these files, you should be able to run:
-
-Assuming you are in the `integration_tests` folder,
-```shell
-dbt deps --target {your_target}
-dbt seed --target {your_target}
-dbt run --target {your_target} --model {your_model_name}
-dbt test --target {your_target} --model {your_model_name}
-```
-
-Alternatively:
-```shell
-dbt deps --target {your_target}
-dbt build --target {your_target} --select +{your_model_name}
-```
-
-If the tests all pass, then you're good to go! All tests will be run automatically when you create a PR against this repo.
+## FAQ
+- `"not init data"` in the webpage:
+Possibly due to the content of the JSON in the index.html, please check if it is in valid JSON format, and that all keys are in string format.
