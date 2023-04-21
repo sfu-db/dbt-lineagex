@@ -8,7 +8,7 @@ If you don't have your dbt already ran yet, change directory to your folder and 
 `dbt run`
 
 After you've finished running your dbt project, change directory to the "scripts" folder and run:
-> **Note** Recommend to have virtual environment setup for running the Python scripts, as it could fight with other dependencies(Currently it is more like a Python project, but will try to make changes to it so that only changes to the dbt_project.yml is only needed for running)
+> **Note** Recommended to have a virtual environment setup for running the Python scripts, as it could fight with other dependencies(Currently it is more like a Python project, but will try to make changes to it so that only changes to the dbt_project.yml needs to be made for running)
 
 ```
 - pip -r requirements.txt
