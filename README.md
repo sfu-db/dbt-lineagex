@@ -3,6 +3,21 @@
 Have you ever wondered what is the column level relationship between the dbt models? Worry not, this tool is intended to help you by creating an interactive webpage to explore the column level lineage among your models(Currently only supports Postgres, other connection types are under development)!
 
 ### Quickstart
+New to dbt packages? Read more about them [here](https://docs.getdbt.com/docs/building-a-dbt-project/package-management/).
+
+## Requirements
+dbt version
+* ```dbt version >= 1.0.0```
+
+## Installation
+
+1. Include this package in your `packages.yml` file.
+```yaml
+packages:
+  - git: "https://github.com/zshandy/dbt-column_lineage.git"
+```
+
+2. Run `dbt deps` to install the package.
 
 If you don't have your dbt already ran yet, change directory to your folder and run:
 `dbt run`
