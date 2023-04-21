@@ -37,6 +37,6 @@ sample command: `php -S localhost:8000`
 - Hovering over a column will highlight its downstream and upstream columns as well.
 - You can navigate through the canvas by clicking "explore" on other tables.
 
-##FAQ
+## FAQ
 - `"not init data"` in the webpage:
 * Possibly due to the content of the JSON in the index.html, please check if it is in valid JSON format, and that all keys are in string format.
