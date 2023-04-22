@@ -151,107 +151,21 @@ def _produce_html(output_json: str = ""):
     file_html = open("index.html", "w", encoding="utf-8")
     # Adding the input data to the HTML file
     file_html.write('''<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>DTDesign-React血缘图组件</title>
-</head>
-<body>
-  <script>
-    window.inlineSource = `{}`;
-  </script>
-  <div id="main"></div>
-<script type="text/javascript" src="app.js"></script></body>
-</html>'''.format(output_json))
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    </head>
+    <body>
+      <script>
+        window.inlineSource = `{}`;
+      </script>
+      <div id="main"></div>
+    <script type="text/javascript" src="vendor.js"></script><script type="text/javascript" src="app.js"></script></body>
+    </html>'''.format(output_json))
     # Saving the data into the HTML file
     file_html.close()
-
-#     # getting the manifest ref
-#     if len(manifest_data['refs']) != 0:
-#         ref_list = [manifest_data['schema'] + "." + i[0] for i in manifest_data['refs']]
-#     else:
-#         ref_list = []
-#     # iterate to get tables
-#     dag_nodes = [{"data": {"id": l['table_name'],}}]
-#     dag_edge_nodes = []
-#     column_list = [{"data": {"id": l['table_name'], "type": "Table"}}]
-#     column_list_edge = []
-#     for idx, t in enumerate(l['tables']):
-#         dag_nodes.append({"data": {"id": t,}})
-#         dag_edge_nodes.append({"data": {"id": f"e{idx}", "source": str(t), "target": l['table_name'],}})
-#         if t in ref_list:
-#             column_list.append({"data": {"id": t, "type": "Subquery"}})
-#         else:
-#             column_list.append({"data": {"id": t, "type": "Table"}})
-#     # iterate to get columns
-#     edge_num = 0
-#     added_nodes = []
-#     for target_col, depend_list in l['columns'].items():
-#         column_list.append({"data": {"id": f"{l['table_name']}.{target_col}", "parent": l['table_name'], "type": 'Column',}})
-#         for depend_col in depend_list:
-#             if depend_col not in added_nodes:
-#                 added_nodes.append(depend_col)
-#                 column_list.append({"data": {"id": f"{depend_col}", "parent": ".".join(depend_col.split(".")[:2]), "type": 'Column',}})
-#             column_list_edge.append({"data": {"id": f"e{edge_num}", "source": depend_col, "target": f"{l['table_name']}.{target_col}",}})
-#             edge_num += 1
-#     return dag_nodes + dag_edge_nodes, column_list + column_list_edge
-
-
-def draw_lineage(output_data: dict = None, manifest_data: dict = None) -> Tuple[List, List]:
-    """
-    Parse the information into a format for front-end
-    :param output_data:the data in the output_dict
-    :param manifest_data: the original manifest_data
-    :return:
-    """
-    # getting the manifest ref
-    if len(manifest_data['refs']) != 0:
-        ref_list = [manifest_data['schema'] + "." + i[0] for i in manifest_data['refs']]
-    else:
-        ref_list = []
-    # iterate to get tables
-    dag_nodes = [{"data": {"id": output_data['table_name'], }}]
-    dag_edge_nodes = []
-    column_list = [{"data": {"id": output_data['table_name'], "type": "Table"}}]
-    column_list_edge = []
-    for idx, t in enumerate(output_data['tables']):
-        dag_nodes.append({"data": {"id": t, }})
-        dag_edge_nodes.append({"data": {"id": f"e{idx}", "source": str(t), "target": output_data['table_name'], }})
-        if t in ref_list:
-            column_list.append({"data": {"id": t, "type": "Subquery"}})
-        else:
-            column_list.append({"data": {"id": t, "type": "Table"}})
-    # iterate to get columns
-    edge_num = 0
-    depend_dict = {}
-    added_nodes = []
-    for target_col, depend_list in output_data['columns'].items():
-        if str(depend_list) in depend_dict.keys():
-            depend_dict[str(depend_list)].append(target_col)
-        else:
-            depend_dict[str(depend_list)] = [target_col]
-
-    for depend_list_key, target_col_val in depend_dict.items():
-        # Add all base nodes
-        for depend_col in ast.literal_eval(depend_list_key):
-            if depend_col not in added_nodes:
-                added_nodes.append(depend_col)
-                column_list.append({"data": {"id": f"{depend_col}", "parent": ".".join(depend_col.split(".")[:2]), "type": 'Column', }})
-        # If there are less than 5 columns with the same dependency
-        if len(target_col_val) < 5:
-            for target_col in target_col_val:
-                column_list.append({"data": {"id": f"{output_data['table_name']}.{target_col}", "parent": output_data['table_name'], "type": 'Column', }})
-                for depend_col in ast.literal_eval(depend_list_key):
-                    column_list_edge.append({"data": {"id": f"e{edge_num}", "source": depend_col, "target": f"{output_data['table_name']}.{target_col}", }})
-                    edge_num += 1
-        else:
-            column_list.append({"data": {"id": f"{output_data['table_name']}.{str(target_col_val[:4]) + '...'}", "parent": output_data['table_name'], "type": 'Column', }})
-            for depend_col in ast.literal_eval(depend_list_key):
-                column_list_edge.append({"data": {"id": f"e{edge_num}", "source": depend_col, "target": f"{output_data['table_name']}.{str(target_col_val[:4]) + '...'}", }})
-                edge_num += 1
-    return dag_nodes + dag_edge_nodes, column_list + column_list_edge
 
 
 if __name__ == "__main__":
