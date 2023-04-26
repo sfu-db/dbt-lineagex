@@ -19,7 +19,7 @@ packages:
 If you don't have your dbt already ran yet, change directory to your main folder and run:
 `dbt run`
 
-After you've finished running your dbt project, change directory to the "/dbt_packages/column_lineage/scripts" folder and run:
+After you've finished running your dbt project, change directory to the "/dbt_packages/lineage-x/scripts" folder and run:
 > **Note** Recommended to have a virtual environment setup for running the Python scripts, as it could fight with other dependencies(Currently it is more like a Python project, but will try to make changes to it so that only changes to the dbt_project.yml needs to be made for running)
 
 ```
