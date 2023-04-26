@@ -1,4 +1,5 @@
-# Column Level Lineage Graph for dbt
+# dbt-LineageX
+##A Column Level Lineage Graph for dbt
 
 Have you ever wondered what is the column level relationship between the dbt models? Worry not, this tool is intended to help you by creating an interactive graph on a webpage to explore the column level lineage among your models(Currently only supports Postgres, other connection types are under development)!
 
