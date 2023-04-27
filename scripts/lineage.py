@@ -3,7 +3,7 @@ import json
 from fal import FalDbt
 
 from column_lineage import ColumnLineage
-from utils import _preprocess_sql, _find_column, _produce_json
+from utils import _preprocess_sql, _produce_json
 from typing import List
 #from itertools import islice
 # for key, value in islice(manifest['nodes'].items(), 3):
@@ -47,13 +47,12 @@ class Lineage:
                 "EXPLAIN (VERBOSE TRUE, FORMAT JSON, COSTS FALSE) {}".format(ret_sql)
             )
             plan = json.loads(ret_fal.iloc[0]["QUERY PLAN"][1:-1])
-            col_names = _find_column(table_name=table_name, engine=self.faldbt)
             #col_names_new = self.table_cols_df[self.table_cols_df["table"] == table_name]
             #print(self.table_cols_df, col_names)
             col_lineage = ColumnLineage(
                 plan=plan["Plan"],
                 sql=ret_sql,
-                cols=col_names,
+                table_name=table_name,
                 faldbt=self.faldbt,
                 part_tables=self.part_tables,
             )
@@ -82,7 +81,7 @@ class Lineage:
 
 
 if __name__ == "__main__":
-    lineage_output = Lineage("D:\\Archive")
+    lineage_output = Lineage("D:\\Archive - Copy")
     #output_dict = _produce_json(lineage_output.output_dict, lineage_output.faldbt)
     #print(str(output_dict))
     # with open("table_output.json", "w") as outfile:

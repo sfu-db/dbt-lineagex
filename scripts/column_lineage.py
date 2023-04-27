@@ -12,7 +12,7 @@ class ColumnLineage:
         self,
         plan: dict = None,
         sql: str = "",
-        cols: list = None,
+        table_name: str = None,
         faldbt: FalDbt = None,
         part_tables: dict = None,
     ):
@@ -36,7 +36,7 @@ class ColumnLineage:
         self.column_dict = {}
         self.table_list = []
         self._traverse_plan(plan)
-        self._resolve_column_dict(cols)
+        self._resolve_column_dict(_find_column(table_name=table_name, engine=self.faldbt))
         self.table_list = sorted(set(self.table_list))
         # print(self.final_output)
         #print(self.subplan_dict)
