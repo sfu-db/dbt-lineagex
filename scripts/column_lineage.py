@@ -29,6 +29,7 @@ class ColumnLineage:
         self.part_tables = part_tables
         self.column_prefix_dict = {}
         self.faldbt = faldbt
+        self.sql_ast = parse_one(sql=sql, read="postgres")
         self.cte_column = self._find_cte_col(sql)
         self.final_output = ""
         self.final_node_type = ""
@@ -562,9 +563,9 @@ class ColumnLineage:
         :return: the dict with table name as keys and list of columns as child
         """
         cte_col_dict = {}
-        for cte in parse_one(sql).find_all(exp.CTE):
+        for cte in self.sql_ast.find_all(exp.CTE):
             cte_col_dict = self._find_cte_col_func(cte, cte_col_dict)
-        for cte in parse_one(sql).find_all(exp.Subquery):
+        for cte in self.sql_ast.find_all(exp.Subquery):
             cte_col_dict = self._find_cte_col_func(cte, cte_col_dict)
         return cte_col_dict
 
