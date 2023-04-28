@@ -33,7 +33,7 @@ class Lineage:
         :return: the output_dict object will be the final output with each model name being key
         """
         self.part_tables = self._get_part_tables()
-        #key = 'model.mimic.weight_durations'
+        #key = 'model.mimic.age_histogram_test'
         #value = self.manifest['nodes'][key]
         for key, value in self.manifest["nodes"].items():
         #for key, value in islice(self.manifest['nodes'].items(), 3):

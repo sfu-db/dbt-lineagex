@@ -3,7 +3,7 @@ from sqlglot import parse_one, exp
 from sqlglot.expressions import CTE
 from fal import FalDbt
 
-from typing import List
+from typing import List, Tuple
 from utils import _find_column
 
 
@@ -345,7 +345,6 @@ class ColumnLineage:
             self.cte_name = s[1]
             temp_dict = {}
             self._extract_from_cond(plan)
-            # for i in range(0, len(self.cte_column[self.cte_name])):
             for idx, val in enumerate(self.cte_column[self.cte_name]):
                 cte_col = re.split(self.split_regex, plan["Output"][idx].strip())
                 all_cols = list(
@@ -533,7 +532,7 @@ class ColumnLineage:
                 ret_cols.append(self.column_prefix_dict[i])
         return list(set(ret_cols))
 
-    def _find_table(self, cte: CTE = None) -> dict:
+    def _find_table(self, cte: CTE = None) -> Tuple[dict, List]:
         """
         Find aliases for the tables in the cte
         :param cte: the sql of the sql to be analyzed
@@ -546,7 +545,15 @@ class ColumnLineage:
                 table_alias_dict[table_def_split[0]] = table_def_split[0]
             else:
                 table_alias_dict[table_def_split[1]] = table_def_split[0]
-        return table_alias_dict
+        # Find tables thats only in the CTE but not in the Subquery
+        temp_cte = cte.copy()
+        for sub_ast in temp_cte.find_all(exp.Subquery):
+            sub_ast.pop()
+        cte_table_list = []
+        for table in temp_cte.find_all(exp.Table):
+            table_def_split = re.split(" AS ", table.sql(), flags=re.IGNORECASE)
+            cte_table_list.append(table_def_split[0])
+        return table_alias_dict, cte_table_list
 
     def _find_cte_col(self, sql: str = "") -> dict:
         """
@@ -578,17 +585,27 @@ class ColumnLineage:
             elif isinstance(projection, exp.Min):
                 col_name = "min"
             # Resolve * and check if it is from a previous CTE or check database for the table
-            elif isinstance(projection, exp.Column) and projection.find(exp.Star):
-                t_name = projection.find(exp.Identifier).text("this")
-                table_alias_dict = self._find_table(cte)
-                if table_alias_dict[t_name] in cte_col_dict.keys():
-                    col_name = cte_col_dict[table_alias_dict[t_name]]
+            elif (isinstance(projection, exp.Column) and projection.find(exp.Star)) or col_name == "*":
+                table_alias_dict, cte_table_list = self._find_table(cte)
+                # if the * has a prefix
+                if projection.find(exp.Identifier):
+                    t_name = projection.find(exp.Identifier).text("this")
+                    if table_alias_dict[t_name] in cte_col_dict.keys():
+                        col_name = cte_col_dict[table_alias_dict[t_name]]
+                    else:
+                        col_name = _find_column(table_name=table_alias_dict[t_name], engine=self.faldbt)
+                # if * has no prefix
                 else:
-                    col_name = _find_column(table_name=table_alias_dict[t_name], engine=self.faldbt)
+                    for t_name in cte_table_list:
+                        if t_name in cte_col_dict.keys():
+                            cte_col_dict[cte_name].extend(cte_col_dict[t_name])
+                        else:
+                            cte_col_dict[cte_name].extend(_find_column(table_name=t_name, engine=self.faldbt))
             if isinstance(col_name, list):
                 cte_col_dict[cte_name].extend(col_name)
             else:
-                cte_col_dict[cte_name].append(col_name)
+                if col_name != "*":
+                    cte_col_dict[cte_name].append(col_name)
         return cte_col_dict
 
 
