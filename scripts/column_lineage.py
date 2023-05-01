@@ -546,7 +546,7 @@ class ColumnLineage:
                 table_alias_dict[table_def_split[0]] = table_def_split[0]
             else:
                 table_alias_dict[table_def_split[1]] = table_def_split[0]
-        # Find tables thats only in the CTE but not in the Subquery
+        # Find tables that's only in the CTE but not in the Subquery
         temp_cte = cte.copy()
         for sub_ast in temp_cte.find_all(exp.Subquery):
             sub_ast.pop()
