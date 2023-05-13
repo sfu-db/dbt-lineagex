@@ -2,7 +2,10 @@
 
 A Column Level Lineage Graph for dbt
 
-Have you ever wondered what is the column level relationship between the dbt models? Worry not, this tool is intended to help you by creating an interactive graph on a webpage to explore the column level lineage among your models(Currently only supports Postgres, other connection types are under development)!
+Have you ever wondered what is the column level relationship between the dbt models? 
+Worry not, this tool is intended to help you by creating an interactive graph on a webpage to 
+explore the column level lineage among your models(Currently only supports Postgres, 
+other connection types are under development)!
 
 ## Requirements
 `dbt version >= 1.0.0`
@@ -21,10 +24,15 @@ packages:
 If you don't have your dbt already ran yet, change directory to your main folder and run:
 `dbt run`
 
-After you've finished running your dbt project, change directory to the "/dbt_packages/lineagex/scripts" folder and run:
-> **Note** Recommended to have a virtual environment setup for running the Python scripts, as it could fight with other dependencies(Currently it is more like a Python project, but will try to make changes to it so that only changes to the dbt_project.yml needs to be made for running)
-
+After you've finished running your dbt project, change directory to the "/dbt_packages/lineagex" folder and run:
+> **Note** Recommended to have a virtual environment setup for running the Python scripts, as it could fight 
+> with other dependencies(Currently it is more like a Python project, but will try to make changes to it so 
+> that only changes to the dbt_project.yml needs to be made for running)
 ```
+./run.sh 
+```
+Or if you want to run the commands separately, they are:
+``` python
 - pip install -r requirements.txt
 - python main.py
 ```
