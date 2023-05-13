@@ -84,3 +84,10 @@ table2.sql - SELECT column1 AS new_column1, column2 AS new_column2 from schema1.
 ## FAQ
 - `"not init data"` in the webpage:
 Possibly due to the content of the JSON in the index.html, please check if it is in valid JSON format, and that all keys are in string format.
+- `ERROR: Could not open requirements file: [Errno 2] No such file or directory: 'requirements.txt\r' while running run.sh`:
+It is due to the file format, run this in command line
+``` bash
+sudo apt-get update
+sudo apt-get install dos2unix
+dos2unix run.sh
+```
