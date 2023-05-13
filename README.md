@@ -37,7 +37,7 @@ Or if you want to run the commands separately, they are:
 - python main.py
 ```
 
-This would create the index.html in the scripts folder, and just start a http server in the folder and you get to see the graph
+This would create the index.html and an output.json in the folder, and just start a http server in the folder, and you get to see the graph
 sample command: `php -S localhost:8000`
 
 ## How to use
@@ -46,6 +46,40 @@ sample command: `php -S localhost:8000`
 - It should show a table on the canvas with table names and its columns, by clicking the "explore" button on the top right, it will show all the downstream and upstream tables that are related to the columns.
 - Hovering over a column will highlight its downstream and upstream columns as well.
 - You can navigate through the canvas by clicking "explore" on other tables.
+
+## Output file
+In the output.json file, it can be read by other programs and analyzed for other uses, the general format is as follows:
+#### Example SQL:
+```SQL
+table1.sql - SELECT column1, column2 FROM schema1.other_table WHERE column3 IS NOT NULL;
+table2.sql - SELECT column1 AS new_column1, column2 AS new_column2 from schema1.table1;
+```
+#### Example JSON output:
+```javascript
+{
+  schema1.other_table: {
+    tables: [], 
+    columns: {
+      column1: [], column2: [], column3: []
+    }, 
+    table_name: schema1.other_table
+  }, 
+  schema1.table1: {
+    tables: [schema1.other_table], 
+    columns: {
+      column1: [schema1.other_table.columns1, schema1.other_table.columns3], column2: [schema1.other_table.columns2, schema1.other_table.columns3]
+    }, 
+    table_name: schema1.table1
+  }, 
+  schema1.table2: {
+    tables: [schema1.table1], 
+    columns: {
+      new_column1: [schema1.table1.columns1], new_column2: [schema1.table1.column2]
+    }, 
+    table_name: schema1.table2
+  }, 
+}
+```
 
 ## FAQ
 - `"not init data"` in the webpage:
