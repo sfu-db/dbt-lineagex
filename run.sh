@@ -1,1 +1,0 @@
-#!/bin/shpip install -r requirements.txtpython3 main.py
