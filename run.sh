@@ -1,3 +1,1 @@
-#!/bin/sh
-pip install -r requirements.txt
-python3 main.py
+#!/bin/shpip install -r requirements.txtpython3 main.py
