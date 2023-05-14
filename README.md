@@ -40,20 +40,26 @@ Or if you want to run the commands separately, they are:
 This would create the index.html and an output.json in the folder, and just start a http server in the folder, and you get to see the graph
 sample command: `php -S localhost:8000`
 
-## How to use
-
-- Start by clicking the star on the right(search) and input a model name that you want to start with.
-- It should show a table on the canvas with table names and its columns, by clicking the "explore" button on the top right, it will show all the downstream and upstream tables that are related to the columns.
-- Hovering over a column will highlight its downstream and upstream columns as well.
-- You can navigate through the canvas by clicking "explore" on other tables.
-
-## Output file
-In the output.json file, it can be read by other programs and analyzed for other uses, the general format is as follows:
+## How to Navigate the Webpage and output
 #### Example SQL:
 ```SQL
 table1.sql - SELECT column1, column2 FROM schema1.other_table WHERE column3 IS NOT NULL;
 table2.sql - SELECT column1 AS new_column1, column2 AS new_column2 from schema1.table1;
 ```
+![Alt text](/example.png?raw=true "example")
+- Start by clicking the star on the right(select) and input a model name that you want to start with.
+- It should show a table on the canvas with table names and its columns, by clicking the "explore" button on the top right, it will show all the downstream and upstream tables that are related to the columns.
+- Hovering over a column will highlight its downstream and upstream columns as well.
+- You can navigate through the canvas by clicking "explore" on other tables.
+- The buttons on the right from top to bottom are: 
+  - center the lineage to the middle
+  - zoom out
+  - zoom in
+  - select, to search the targeted table and begin the lineage tracing
+  - expand all columns for all table, CAUTION: this might hinder performance if there are many tables
+  - explore all lineage, this would trace all downstream and upstream tables recursively and all columns are shrunk by default for performance
+
+In the output.json file, it can be read by other programs and analyzed for other uses, the general format is as follows:
 #### Example JSON output:
 ```javascript
 {
@@ -71,12 +77,12 @@ table2.sql - SELECT column1 AS new_column1, column2 AS new_column2 from schema1.
     }, 
     table_name: schema1.table1
   }, 
-  schema1.table2: {
+  table2: {
     tables: [schema1.table1], 
     columns: {
       new_column1: [schema1.table1.columns1], new_column2: [schema1.table1.column2]
     }, 
-    table_name: schema1.table2
+    table_name: table2
   }, 
 }
 ```
