@@ -7,6 +7,8 @@ Worry not, this tool is intended to help you by creating an interactive graph on
 explore the column level lineage among your models(Currently only supports Postgres, 
 other connection types are under development)!
 
+Here is a [demo](https://zshandy.github.io/lineagex-demo/) with the [mimic-iv concepts_postgres](https://github.com/MIT-LCP/mimic-code/tree/main/mimic-iv/concepts_postgres) files([navigation instructions](#how-to-navigate-the-webpage-and-output))
+
 ## Requirements
 `dbt version >= 1.0.0`
 
