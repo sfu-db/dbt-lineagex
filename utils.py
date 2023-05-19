@@ -25,7 +25,7 @@ def _remove_comments(str1: str = "") -> str:
     return str1
 
 
-def _preprocess_sql(node: dict = None) -> str:
+def dbt_preprocess_sql(node: dict = None) -> str:
     """
     Process the sql, remove database name in the clause/datetime_add/datetime_sub adding quotes
     :param node: the node containing the original sql, file: file name for the sql
@@ -79,7 +79,7 @@ def _preprocess_sql(node: dict = None) -> str:
     return ret_sql
 
 
-def _find_column(table_name: str = "", engine: FalDbt = None) -> List:
+def dbt_find_column(table_name: str = "", engine: FalDbt = None) -> List:
     """
     Find the columns for the base table in the database
     :param engine: the connection engine
@@ -100,7 +100,7 @@ def _find_column(table_name: str = "", engine: FalDbt = None) -> List:
     return list(cols_fal["col"])
 
 
-def _produce_json(output_dict: dict = None, engine: FalDbt = None) -> dict:
+def dbt_produce_json(output_dict: dict = None, engine: FalDbt = None) -> dict:
     table_to_model_dict = {}
     for key, val in output_dict.items():
         table_to_model_dict[val["table_name"]] = key
@@ -134,7 +134,7 @@ def _produce_json(output_dict: dict = None, engine: FalDbt = None) -> dict:
             base_table_dict[key] = {}
             base_table_dict[key]["tables"] = [""]
             base_table_dict[key]["columns"] = {}
-            cols = _find_column(key, engine)
+            cols = dbt_find_column(key, engine)
             for i in cols:
                 base_table_dict[key]["columns"][i] = [""]
             base_table_dict[key]["table_name"] = str(key)

@@ -2,10 +2,11 @@ import os
 import json
 from fal import FalDbt
 
-from column_lineage import ColumnLineage
-from utils import _preprocess_sql, _produce_json
+# from column_lineage import ColumnLineage
+from lineagex.ColumnLineage import ColumnLineage
+from utils import dbt_preprocess_sql, dbt_produce_json, dbt_find_column
 from typing import List
-#from itertools import islice
+# from itertools import islice
 # for key, value in islice(manifest['nodes'].items(), 3):
 
 
@@ -33,34 +34,35 @@ class Lineage:
         :return: the output_dict object will be the final output with each model name being key
         """
         self.part_tables = self._get_part_tables()
-        #key = 'model.mimic.age_histogram_test'
-        #value = self.manifest['nodes'][key]
+        # key = 'model.mimic.age_histogram_test'
+        # value = self.manifest['nodes'][key]
         for key, value in self.manifest["nodes"].items():
-        #for key, value in islice(self.manifest['nodes'].items(), 3):
-            print(key)
+        # for key, value in islice(self.manifest['nodes'].items(), 3):
+            print(key, " completed")
             table_name = value["schema"] + "." + value["name"]
             self.output_dict[key] = {}
-            ret_sql = _preprocess_sql(value)
+            ret_sql = dbt_preprocess_sql(value)
             # self.output_dict[key]["sql"] = value["compiled_code"].replace('\n', '')
-            #self.output_dict[key]["sql"] = ret_sql
+            # self.output_dict[key]["sql"] = ret_sql
             ret_fal = self.faldbt.execute_sql(
                 "EXPLAIN (VERBOSE TRUE, FORMAT JSON, COSTS FALSE) {}".format(ret_sql)
             )
             plan = json.loads(ret_fal.iloc[0]["QUERY PLAN"][1:-1])
-            #col_names_new = self.table_cols_df[self.table_cols_df["table"] == table_name]
-            #print(self.table_cols_df, col_names)
+            # col_names_new = self.table_cols_df[self.table_cols_df["table"] == table_name]
+            # print(self.table_cols_df, col_names)
+            cols = dbt_find_column(table_name=table_name, engine=self.faldbt)
             col_lineage = ColumnLineage(
                 plan=plan["Plan"],
                 sql=ret_sql,
-                table_name=table_name,
-                faldbt=self.faldbt,
+                columns=cols,
+                conn=self.faldbt,
                 part_tables=self.part_tables,
             )
             self.output_dict[key]["tables"] = col_lineage.table_list
             self.output_dict[key]["columns"] = col_lineage.column_dict
             self.output_dict[key]["table_name"] = table_name
-            #self.output_dict[key]["plan"] = plan["Plan"]
-        _produce_json(self.output_dict, self.faldbt)
+            # self.output_dict[key]["plan"] = plan["Plan"]
+        dbt_produce_json(self.output_dict, self.faldbt)
 
     def _get_part_tables(self) -> dict:
         """
