@@ -1,2 +1,3 @@
 fal==0.8.4
-sqlglot==11.5.3
+sqlglot>=11.5.3
+lineagex>=0.0.3
