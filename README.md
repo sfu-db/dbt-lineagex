@@ -7,7 +7,7 @@ Worry not, this tool is intended to help you by creating an interactive graph on
 explore the column level lineage among your models(Currently only supports Postgres, 
 other connection types are under development)! This library uses the same core as the [LineageX](https://github.com/sfu-db/lineagex).
 
-Here is a [live demo](https://zshandy.github.io/lineagex-demo/) with the [mimic-iv concepts_postgres](https://github.com/MIT-LCP/mimic-code/tree/main/mimic-iv/concepts_postgres) files[navigation instructions](https://sfu-db.github.io/lineagex/output.html#how-to-navigate-the-webpage))
+Here is a [live demo](https://zshandy.github.io/lineagex-demo/) with the [mimic-iv concepts_postgres](https://github.com/MIT-LCP/mimic-code/tree/main/mimic-iv/concepts_postgres) files([navigation instructions](https://sfu-db.github.io/lineagex/output.html#how-to-navigate-the-webpage))
 
 ## Requirements
 `dbt version >= 1.0.0`
