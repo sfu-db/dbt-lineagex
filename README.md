@@ -41,7 +41,7 @@ Or if you want to run the commands separately, they are:
 
 ## What does it output
 The output would be a output.json and a index.html file in the folder. Start a local http server, and you would be able to see the interactive graph. Sample command: `php -S localhost:8000`
-<img src="https://raw.githubusercontent.com/sfu-db/lineagex/main/tests/example.gif"/>
+<img src="https://raw.githubusercontent.com/sfu-db/lineagex/main/docs/example.gif"/>
 Check out more detailed navigation instructions [here](https://sfu-db.github.io/lineagex/output.html#how-to-navigate-the-webpage).
 
 ## FAQ
